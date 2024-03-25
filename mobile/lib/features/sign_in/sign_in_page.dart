@@ -1,6 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/navigation/routes.dart';
 import 'package:mobile/resources/theme.dart';
-import 'package:mobile/widgets/text_field.dart';
+import 'package:mobile/widgets/widgets.dart';
 
 class SignInPage extends Page<void> {
   const SignInPage({super.key});
@@ -31,7 +33,7 @@ class SignInScreen extends StatelessWidget {
           child: SingleChildScrollView(
             child: Container(
               padding: const EdgeInsets.all(24),
-              width: MediaQuery.of(context).size.width * 0.7,
+              width: MediaQuery.of(context).size.width * 0.8,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(42),
@@ -66,7 +68,7 @@ class SignInScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Sign in', style: context.textTheme.titleMedium),
+                      Text('Sign in', style: context.textTheme.titleLarge),
                       const SizedBox(height: 6),
                       const EcoTextField(hintText: 'Email'),
                       const SizedBox(height: 6),
@@ -85,31 +87,11 @@ class SignInScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 18),
                   Center(
-                    child: TextButton(
-                      onPressed: () {},
-                      style: ButtonStyle(
-                        padding: MaterialStateProperty.all(
-                          const EdgeInsets.symmetric(
-                            horizontal: 32,
-                          ),
-                        ),
-                        backgroundColor: MaterialStateProperty.all(
-                          const Color(0XFF173309),
-                        ),
-                      ),
-                      child: const Text('Sign in'),
+                    child: EcoButton(
+                      text: 'Sign in',
+                      onPressed: () => GoCalendarRoute().push<void>(context),
                     ),
                   ),
-                  // TextButton(
-                  //   onPressed: () => GoSignUpRoute().push<void>(context),
-                  //   child: const Text('Open SignUpPage'),
-                  // ),
-                  // TextButton(
-                  //   onPressed: () {
-                  //     // go to SignUpPage
-                  //   },
-                  //   child: const Text('Open CalendarPage'),
-                  // ),
                   const SizedBox(height: 18),
                   const FractionallySizedBox(
                     widthFactor: 0.5,
@@ -119,15 +101,17 @@ class SignInScreen extends StatelessWidget {
                   RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
-                      style: context.textTheme.labelSmall,
-                      children: const [
-                        TextSpan(
+                      style: context.textTheme.labelMedium,
+                      children: [
+                        const TextSpan(
                           text: 'Not on ECOAct yet? ',
                           style: TextStyle(color: Colors.green),
                         ),
                         TextSpan(
                           text: 'Create an account here',
-                          style: TextStyle(
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => GoSignUpRoute().push<void>(context),
+                          style: const TextStyle(
                             decoration: TextDecoration.underline,
                           ),
                         ),

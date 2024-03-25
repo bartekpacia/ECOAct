@@ -25,10 +25,14 @@ class EcoTextField extends StatelessWidget {
     );
 
     return TextField(
+      cursorColor: MediaQuery.of(context).platformBrightness == Brightness.light
+          ? Colors.black
+          : Colors.white,
       obscureText: password,
       enableSuggestions: !password,
       autocorrect: !password,
       decoration: InputDecoration(
+        isDense: true,
         hintText: hintText,
         fillColor: context.colorScheme.background,
         filled: true,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:mobile/navigation/routes.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarPage extends Page<void> {
@@ -40,6 +41,8 @@ class CalendarScreen extends HookWidget {
           onDaySelected: (newSelectedDay, newFocusedDay) {
             selectedDay.value = newSelectedDay;
             focusedDay.value = newFocusedDay;
+
+            GoQuizRoute().push<void>(context);
           },
           calendarBuilders: CalendarBuilders(
             outsideBuilder: (context, day, focusedDay) => null,

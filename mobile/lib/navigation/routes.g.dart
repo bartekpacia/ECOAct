@@ -10,6 +10,7 @@ List<RouteBase> get $appRoutes => [
       $goSignInRoute,
       $goSignUpRoute,
       $goCalendarRoute,
+      $goQuizRoute,
     ];
 
 RouteBase get $goSignInRoute => GoRouteData.$route(
@@ -66,6 +67,28 @@ extension $GoCalendarRouteExtension on GoCalendarRoute {
 
   String get location => GoRouteData.$location(
         '/calendar',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $goQuizRoute => GoRouteData.$route(
+      path: '/quiz',
+      factory: $GoQuizRouteExtension._fromState,
+    );
+
+extension $GoQuizRouteExtension on GoQuizRoute {
+  static GoQuizRoute _fromState(GoRouterState state) => GoQuizRoute();
+
+  String get location => GoRouteData.$location(
+        '/quiz',
       );
 
   void go(BuildContext context) => context.go(location);

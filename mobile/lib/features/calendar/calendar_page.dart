@@ -45,9 +45,16 @@ class CalendarScreen extends HookWidget {
             GoQuizRoute().push<void>(context);
           },
           calendarBuilders: CalendarBuilders(
-            outsideBuilder: (context, day, focusedDay) => null,
+            outsideBuilder: (context, day, focusedDay) {
+              return Center(
+                child: Text(
+                  day.day.toString(),
+                  style: const TextStyle(color: Colors.grey),
+                ),
+              );
+            },
             defaultBuilder: (context, day, focusedDay) {
-              return const Center(child: Text('xd'));
+              return Center(child: Text(day.day.toString()));
             },
           ),
         ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:mobile/features/quiz/quiz_models.dart';
 import 'package:mobile/resources/theme.dart';
 
@@ -18,7 +17,7 @@ class QuizRoute extends MaterialPageRoute<void> {
         );
 }
 
-class QuizScreen extends HookWidget {
+class QuizScreen extends StatelessWidget {
   const QuizScreen({super.key});
 
   @override

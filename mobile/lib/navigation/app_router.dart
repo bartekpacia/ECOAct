@@ -9,5 +9,6 @@ class AppRouter extends GoRouter {
       : super.routingConfig(
           routingConfig: ValueNotifier(RoutingConfig(routes: $appRoutes)),
           initialLocation: signInRouteLocation,
+          navigatorKey: rootNavigatorKey,
         );
 }

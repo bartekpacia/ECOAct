@@ -23,8 +23,8 @@ class QuizScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedDay = useState<DateTime?>(null);
-    final focusedDay = useState<DateTime?>(null);
+    // final selectedQuizIndexes =
+    //     useState([for (final question in quiz.questions) 0]);
 
     return Scaffold(
       appBar: AppBar(title: const Text('QuizScreen')),
@@ -42,7 +42,6 @@ class QuizScreen extends HookWidget {
   }
 }
 
-// with singlechildscrollview
 class AnswersList extends StatelessWidget {
   const AnswersList({
     super.key,

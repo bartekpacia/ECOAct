@@ -1,5 +1,16 @@
 import 'package:flutter/material.dart';
 
+extension ColorX on Color {
+  Color darken({double amount = 0.1}) {
+    assert(amount >= 0 && amount <= 1);
+
+    final hsl = HSLColor.fromColor(this);
+    final hslDark = hsl.withLightness((hsl.lightness - amount).clamp(0.0, 1.0));
+
+    return hslDark.toColor();
+  }
+}
+
 class AppColors {
   static const primary = Color(0xFF90FD8C);
   static const primaryDark = Color(0xFF377F15);

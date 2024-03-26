@@ -9,7 +9,7 @@ part of 'routes.dart';
 List<RouteBase> get $appRoutes => [
       $goSignInRoute,
       $goSignUpRoute,
-      $goCalendarRoute,
+      $goHomeShellRouteData,
     ];
 
 RouteBase get $goSignInRoute => GoRouteData.$route(
@@ -56,16 +56,83 @@ extension $GoSignUpRouteExtension on GoSignUpRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $goCalendarRoute => GoRouteData.$route(
-      path: '/calendar',
-      factory: $GoCalendarRouteExtension._fromState,
+RouteBase get $goHomeShellRouteData => StatefulShellRouteData.$route(
+      restorationScopeId: GoHomeShellRouteData.$restorationScopeId,
+      navigatorContainerBuilder:
+          GoHomeShellRouteData.$navigatorContainerBuilder,
+      factory: $GoHomeShellRouteDataExtension._fromState,
+      branches: [
+        StatefulShellBranchData.$branch(
+          routes: [
+            GoRouteData.$route(
+              path: '/calendar',
+              factory: $GoCalendarRouteExtension._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: 'quiz',
+                  factory: $GoQuizRouteExtension._fromState,
+                ),
+              ],
+            ),
+          ],
+        ),
+        StatefulShellBranchData.$branch(
+          navigatorKey: ProfileBranchData.$navigatorKey,
+          restorationScopeId: ProfileBranchData.$restorationScopeId,
+          routes: [
+            GoRouteData.$route(
+              path: '/profile',
+              factory: $GoProfileRouteExtension._fromState,
+            ),
+          ],
+        ),
+      ],
     );
+
+extension $GoHomeShellRouteDataExtension on GoHomeShellRouteData {
+  static GoHomeShellRouteData _fromState(GoRouterState state) =>
+      const GoHomeShellRouteData();
+}
 
 extension $GoCalendarRouteExtension on GoCalendarRoute {
   static GoCalendarRoute _fromState(GoRouterState state) => GoCalendarRoute();
 
   String get location => GoRouteData.$location(
         '/calendar',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $GoQuizRouteExtension on GoQuizRoute {
+  static GoQuizRoute _fromState(GoRouterState state) => GoQuizRoute();
+
+  String get location => GoRouteData.$location(
+        '/calendar/quiz',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $GoProfileRouteExtension on GoProfileRoute {
+  static GoProfileRoute _fromState(GoRouterState state) => GoProfileRoute();
+
+  String get location => GoRouteData.$location(
+        '/profile',
       );
 
   void go(BuildContext context) => context.go(location);

@@ -1,16 +1,59 @@
-# mobile
+# ECOAlert
 
-A new Flutter project.
+Cross-platform mobile app built with [Flutter] and [Firebase].
 
-## Getting Started
+## Notes
 
-This project is a starting point for a Flutter application.
+- [go_router] (with [go_router_builder]) is used for navigation
 
-A few resources to get you started if this is your first Flutter project:
+## Development
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Run dependencies update
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```console
+flutter pub get
+```
+
+### Run linter
+
+```console
+flutter analyze
+dart run custom_lint
+```
+
+### Run tests
+
+```console
+flutter test
+```
+
+### Run formatter
+
+```console
+dart format .
+```
+
+### Regenerate code
+
+```console
+dart run build_runner build --delete-conflicting-outputs
+```
+
+## Deployment
+
+To build debug app for Android:
+
+```console
+flutter build apk --debug
+```
+
+To build debug app for iOS
+
+```console
+flutter build ios --debug
+```
+
+[Flutter]: https://flutter.dev
+[Firebase]: https://firebase.google.com
+[go_router]: https://pub.dev/packages/go_router
+[go_router_builder]: https://pub.dev/packages/go_router_builder

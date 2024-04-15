@@ -19,10 +19,11 @@ class Question {
 }
 
 class Answer {
-  Answer(this.answer, {required this.icon});
+  Answer(this.answer, this.points, {required this.icon});
 
   final String answer;
   final String icon;
+  final int points;
 }
 
 final quiz = Quiz(
@@ -31,26 +32,26 @@ final quiz = Quiz(
       color: '0XFF1AA3DE',
       question: 'What means of transportation did you use today?',
       answers: [
-        Answer('walked', icon: 'walking.png'),
-        Answer('bicycle', icon: 'bicycle.png'),
-        Answer('car', icon: 'car.png'),
-        Answer('electric bicycle', icon: 'electric_bicycle.png'),
-        Answer('electric car', icon: 'electric_car.png'),
-        Answer('motorcycle', icon: 'motorcycle.png'),
-        Answer('train', icon: 'train.png'),
+        Answer('walked',20, icon: 'walking.png',),
+        Answer('bicycle',20 ,icon: 'bicycle.png'),
+        Answer('car',-10, icon: 'car.png'),
+        Answer('electric bicycle',15,icon: 'electric_bicycle.png'),
+        Answer('electric car',-5, icon: 'electric_car.png'),
+        Answer('motorcycle',-15, icon: 'motorcycle.png'),
+        Answer('train',15, icon: 'train.png'),
       ],
     ),
     Question(
       color: '0XFFA1CB8D',
       question: 'What did you eat today?',
       answers: [
-        Answer('meat', icon: 'meat.png'),
-        Answer('fish', icon: 'fish.png'),
-        Answer('vegetables', icon: 'vegetables.png'),
-        Answer('processed food', icon: 'pizza.png'),
-        Answer('local products', icon: 'local_products.png'),
-        Answer('imported products', icon: 'imported_products.png'),
-        Answer('made at home', icon: 'home.png'),
+        Answer('meat',5, icon: 'meat.png'),
+        Answer('fish',5, icon: 'fish.png'),
+        Answer('vegetables',10, icon: 'vegetables.png'),
+        Answer('processed food',-10, icon: 'pizza.png'),
+        Answer('local products',20, icon: 'local_products.png'),
+        Answer('imported products',-15, icon: 'imported_products.png'),
+        Answer('made at home',25, icon: 'home.png'),
       ],
     ),
   ],

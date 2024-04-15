@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mobile/features/calendar/calendar_page.dart';
 import 'package:mobile/features/home/home_page.dart';
 import 'package:mobile/features/profile/profile_page.dart';
+import 'package:mobile/features/score/score_page.dart';
 import 'package:mobile/features/quiz/quiz_page.dart';
 import 'package:mobile/features/sign_in/sign_in_page.dart';
 import 'package:mobile/features/sign_up/sign_up_page.dart';
@@ -53,6 +54,13 @@ class GoSignUpRoute extends GoRouteData {
         ),
       ],
     ),
+    TypedStatefulShellBranch<ScoreBranchData>(
+      routes: <TypedRoute<RouteData>>[
+        TypedGoRoute<GoScoreRoute>(
+          path: '/score',
+        ),
+      ],
+    ),
   ],
 )
 class GoHomeShellRouteData extends StatefulShellRouteData {
@@ -84,6 +92,13 @@ class GoHomeShellRouteData extends StatefulShellRouteData {
 class CalendarBranchData extends StatefulShellBranchData {
   const CalendarBranchData();
 }
+class ScoreBranchData extends StatefulShellBranchData {
+  const ScoreBranchData();
+
+  static final GlobalKey<NavigatorState> $navigatorKey = _sectionANavigatorKey;
+  static const String $restorationScopeId = 'restorationScopeId';
+
+}
 
 class ProfileBranchData extends StatefulShellBranchData {
   const ProfileBranchData();
@@ -110,5 +125,13 @@ class GoProfileRoute extends GoRouteData {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return const ProfilePage();
+  }
+}
+
+
+class GoScoreRoute extends GoRouteData {
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return const ScorePage();
   }
 }

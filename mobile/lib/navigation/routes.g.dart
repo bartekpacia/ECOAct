@@ -86,6 +86,16 @@ RouteBase get $goHomeShellRouteData => StatefulShellRouteData.$route(
             ),
           ],
         ),
+        StatefulShellBranchData.$branch(
+          navigatorKey: ProfileBranchData.$navigatorKey,
+          restorationScopeId: ProfileBranchData.$restorationScopeId,
+          routes: [
+            GoRouteData.$route(
+              path: '/score',
+              factory: $GoProfileRouteExtension._fromState,
+            ),
+          ],
+        ),
       ],
     );
 
@@ -134,6 +144,23 @@ extension $GoProfileRouteExtension on GoProfileRoute {
   String get location => GoRouteData.$location(
         '/profile',
       );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $GoScoreRouteExtension on GoScoreRoute {
+  static GoScoreRoute _fromState(GoRouterState state) => GoScoreRoute();
+
+  String get location => GoRouteData.$location(
+    '/score',
+  );
 
   void go(BuildContext context) => context.go(location);
 

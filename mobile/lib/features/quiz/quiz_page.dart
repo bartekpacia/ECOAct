@@ -60,7 +60,7 @@ class _AnswersListState extends State<AnswersList> {
   // final String selectedAnswerText;
 
   Set<String> selectedAnswers = {};
-  int score=0;
+  int score = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -90,26 +90,18 @@ class _AnswersListState extends State<AnswersList> {
                         setState(() {
                           if (selectedAnswers.contains(answer.answer)) {
                             selectedAnswers.remove(answer.answer);
-
+                            score -= answer.points;
                           } else {
                             selectedAnswers.add(answer.answer);
-                          }
-                        });
-                        setState(() {
-                          if (selectedAnswers.contains(answer.answer)) {
-                            score-=answer.points;
-                          } else {
-                            score+=answer.points;
+                            score += answer.points;
                           }
                         });
                       },
-
                       child: AnswerTile(
                         text: answer.answer,
                         assetPath: 'assets/images/answers/${answer.icon}',
                         color: Color(int.parse(widget.question.color)),
                         selected: selectedAnswers.contains(answer.answer),
-
                       ),
                     ),
                   ),

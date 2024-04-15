@@ -99,7 +99,7 @@ class _AnswersListState extends State<AnswersList> {
                           if (selectedAnswers.contains(answer.answer)) {
                             score-=answer.points;
                           } else {
-                            score-=answer.points;
+                            score+=answer.points;
                           }
                         });
                       },

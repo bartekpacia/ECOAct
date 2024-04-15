@@ -1,16 +1,16 @@
 import 'package:flutter/widgets.dart';
 
 class ScoreModel extends ChangeNotifier {
-  int _state = 0;
-  int get state => _state;
+  int _score = 0;
+  int get score => _score;
 
   void increment([int value = 1]) {
-    _state += value;
+    _score += value;
     notifyListeners();
   }
 
   void decrement([int value = 2]) {
-    _state -= value;
+    _score -= value;
     notifyListeners();
   }
 }

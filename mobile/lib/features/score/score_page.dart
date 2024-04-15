@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/score_model.dart';
+import 'package:provider/provider.dart';
 
 class ScorePage extends Page<void> {
   const ScorePage({super.key});
@@ -22,7 +24,13 @@ class ScoreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('ScoreScreen')),
-      body: const Center(child: Text('Score:')),
+      body: Center(
+        child: Consumer<ScoreModel>(
+          builder: (context, model, _) {
+            return Text('Score: ${model.score}');
+          },
+        ),
+      ),
     );
   }
 }

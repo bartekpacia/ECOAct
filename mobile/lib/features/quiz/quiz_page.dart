@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/features/quiz/quiz_models.dart';
 import 'package:mobile/resources/theme.dart';
+import 'package:mobile/score_model.dart';
+import 'package:provider/provider.dart';
 
 class QuizPage extends Page<void> {
   const QuizPage({super.key});
@@ -90,10 +92,12 @@ class _AnswersListState extends State<AnswersList> {
                         setState(() {
                           if (selectedAnswers.contains(answer.answer)) {
                             selectedAnswers.remove(answer.answer);
-                            score -= answer.points;
+                            Provider.of<ScoreModel>(context, listen: false)
+                                .decrement(answer.points);
                           } else {
                             selectedAnswers.add(answer.answer);
-                            score += answer.points;
+                            Provider.of<ScoreModel>(context, listen: false)
+                                .increment(answer.points);
                           }
                         });
                       },

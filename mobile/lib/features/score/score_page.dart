@@ -23,11 +23,28 @@ class ScoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('ScoreScreen')),
+      appBar: AppBar(title: const Text('Personal Score')),
       body: Center(
         child: Consumer<ScoreModel>(
           builder: (context, model, _) {
-            return Text('Score: ${model.score}');
+            return Stack(
+              alignment: Alignment.center,
+              children: [
+                Icon(
+                  Icons.public,
+                  size: 200,  // Size of the icon
+                  color: Colors.blue.shade100,  // Contrasting color
+                ),
+                Text(
+                  model.score.toString(),
+                  style: const TextStyle(
+                    fontSize: 48,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green,
+                  ),
+                ),
+              ],
+            );
           },
         ),
       ),

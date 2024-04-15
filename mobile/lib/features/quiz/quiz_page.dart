@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/features/quiz/quiz_models.dart';
 import 'package:mobile/resources/theme.dart';
+import 'package:mobile/score_model.dart';
+import 'package:provider/provider.dart';
 
 class QuizPage extends Page<void> {
   const QuizPage({super.key});
@@ -32,7 +34,7 @@ class QuizScreen extends StatelessWidget {
           for (final question in quiz.questions)
             AnswersList(
               question: question,
-              selectedAnswerText: 'walked',
+              // selectedAnswerText: 'bicycle',
               onAnswerSelected: (answer) {},
             ),
         ],
@@ -41,17 +43,26 @@ class QuizScreen extends StatelessWidget {
   }
 }
 
-class AnswersList extends StatelessWidget {
+class AnswersList extends StatefulWidget {
   const AnswersList({
     super.key,
     required this.question,
     required this.onAnswerSelected,
-    required this.selectedAnswerText,
+    // required this.selectedAnswerText,
   });
 
   final Question question;
   final void Function(Answer) onAnswerSelected;
-  final String selectedAnswerText;
+
+  @override
+  State<AnswersList> createState() => _AnswersListState();
+}
+
+class _AnswersListState extends State<AnswersList> {
+  // final String selectedAnswerText;
+
+  Set<String> selectedAnswers = {};
+  int score = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -61,9 +72,9 @@ class AnswersList extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 16, top: 24, bottom: 16),
           child: Text(
-            question.question,
+            widget.question.question,
             style: context.textTheme.bodyLarge?.copyWith(
-              color: Color(int.parse(question.color)).darken(),
+              color: Color(int.parse(widget.question.color)).darken(),
               fontWeight: FontWeight.bold,
             ),
             textAlign: TextAlign.left,
@@ -72,15 +83,30 @@ class AnswersList extends StatelessWidget {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: question.answers
+            children: widget.question.answers
                 .map(
                   (answer) => Padding(
                     padding: const EdgeInsets.all(8),
-                    child: AnswerTile(
-                      text: answer.answer,
-                      assetPath: 'assets/images/answers/${answer.icon}',
-                      color: Color(int.parse(question.color)),
-                      selected: selectedAnswerText == answer.answer,
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          if (selectedAnswers.contains(answer.answer)) {
+                            selectedAnswers.remove(answer.answer);
+                            Provider.of<ScoreModel>(context, listen: false)
+                                .decrement(answer.points);
+                          } else {
+                            selectedAnswers.add(answer.answer);
+                            Provider.of<ScoreModel>(context, listen: false)
+                                .increment(answer.points);
+                          }
+                        });
+                      },
+                      child: AnswerTile(
+                        text: answer.answer,
+                        assetPath: 'assets/images/answers/${answer.icon}',
+                        color: Color(int.parse(widget.question.color)),
+                        selected: selectedAnswers.contains(answer.answer),
+                      ),
                     ),
                   ),
                 )

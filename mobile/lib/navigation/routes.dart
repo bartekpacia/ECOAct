@@ -4,6 +4,7 @@ import 'package:mobile/features/calendar/calendar_page.dart';
 import 'package:mobile/features/home/home_page.dart';
 import 'package:mobile/features/profile/profile_page.dart';
 import 'package:mobile/features/quiz/quiz_page.dart';
+import 'package:mobile/features/score/score_page.dart';
 import 'package:mobile/features/sign_in/sign_in_page.dart';
 import 'package:mobile/features/sign_up/sign_up_page.dart';
 
@@ -14,8 +15,16 @@ const signInRouteLocation = '/sign_in';
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 final shellNavigatorKey = GlobalKey<NavigatorState>();
 
-final _sectionANavigatorKey = GlobalKey<NavigatorState>(
-  debugLabel: 'sectionANav',
+final _calendarNavigatorKey = GlobalKey<NavigatorState>(
+  debugLabel: 'calendarBranchNavigator',
+);
+
+final _profileNavigatorKey = GlobalKey<NavigatorState>(
+  debugLabel: 'profileBranchNavigator',
+);
+
+final _scoreNavigatorKey = GlobalKey<NavigatorState>(
+  debugLabel: 'scoreBranchNavigator',
 );
 
 @TypedGoRoute<GoSignInRoute>(path: '/sign_in')
@@ -53,6 +62,13 @@ class GoSignUpRoute extends GoRouteData {
         ),
       ],
     ),
+    TypedStatefulShellBranch<ScoreBranchData>(
+      routes: <TypedRoute<RouteData>>[
+        TypedGoRoute<GoScoreRoute>(
+          path: '/score',
+        ),
+      ],
+    ),
   ],
 )
 class GoHomeShellRouteData extends StatefulShellRouteData {
@@ -83,13 +99,23 @@ class GoHomeShellRouteData extends StatefulShellRouteData {
 
 class CalendarBranchData extends StatefulShellBranchData {
   const CalendarBranchData();
+
+  static final GlobalKey<NavigatorState> $navigatorKey = _calendarNavigatorKey;
+  static const String $restorationScopeId = 'calendarRestorationScopeId';
+}
+
+class ScoreBranchData extends StatefulShellBranchData {
+  const ScoreBranchData();
+
+  static final GlobalKey<NavigatorState> $navigatorKey = _scoreNavigatorKey;
+  static const String $restorationScopeId = 'scoreRestorationScopeId';
 }
 
 class ProfileBranchData extends StatefulShellBranchData {
   const ProfileBranchData();
 
-  static final GlobalKey<NavigatorState> $navigatorKey = _sectionANavigatorKey;
-  static const String $restorationScopeId = 'restorationScopeId';
+  static final GlobalKey<NavigatorState> $navigatorKey = _profileNavigatorKey;
+  static const String $restorationScopeId = 'profileRestorationScopeId';
 }
 
 class GoCalendarRoute extends GoRouteData {
@@ -110,5 +136,12 @@ class GoProfileRoute extends GoRouteData {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return const ProfilePage();
+  }
+}
+
+class GoScoreRoute extends GoRouteData {
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return const ScorePage();
   }
 }

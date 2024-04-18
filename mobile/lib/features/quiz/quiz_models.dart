@@ -64,5 +64,22 @@ final quiz = Quiz(
         Answer('made at home',25, icon: 'home.png'),
       ],
     ),
+    Question(
+      color: '0X6FED2FC8',
+      question: 'Did you buy clothes today, if yes what type?',
+      answers: [
+        Answer('No',5, icon: 'no.png'),
+        Answer('Fast Fashion',-20, icon: 'fast.png'),
+        Answer('Second Hand',10, icon: 'second_hand.png'),
+        Answer('Eco Friendly',5, icon: 'eco.png'),
+        Answer('Organic Cotton Clothing',5, icon: 'cotton.png'),
+        Answer('Upcycled or Recycled Fashion',10, icon: 'recycle.png'),
+        Answer('Vegan Fashion',-5, icon: 'vegan_fashion.png'),
+        Answer('Slow Fashion',-5, icon: 'slow_fashion.png'),
+        Answer('Renting or Swapping Clothes',10, icon: 'swap.png'),
+        Answer('Local or Artisanal Fashion',10, icon: 'clothes.png'),
+        Answer('others',0, icon: 'dress.png'),
+      ],
+    ),
   ],
 );

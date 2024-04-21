@@ -57,17 +57,62 @@ class _WaterConsumptionWidgetState extends State<WaterConsumptionWidget> {
   final TextEditingController _controller = TextEditingController();
 
   void _handleSubmit(String value) {
-    final int consumption = int.tryParse(value) ?? 0;
+    final consumption = int.tryParse(value) ?? 0;
     final scoreModel = Provider.of<ScoreModel>(context, listen: false);
 
-    if (consumption > 143) {
-      scoreModel.decrement(10); // Penalize high water usage
+    if (consumption > 150) {
+      scoreModel.decrement(10);
     } else if (consumption > 100) {
-      scoreModel.increment(5);  // Reward moderate water usage
+      scoreModel.increment(5);
     } else {
-      scoreModel.increment(20); // Reward low water usage
+      scoreModel.increment(20);
     }
   }
+
+  
+void _showHelpDialog() {
+    showDialog<void>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: const Color(0xFF1AA3DE).withOpacity(0.95), // Light blue background with slight opacity for elegance
+          title: const Text(
+            'Water Usage Help',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), // White text for the title
+          ),
+          content: const SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Shower: 8 liters/minute', style: TextStyle(color: Colors.white)),
+                Text('Bath: 80 liters', style: TextStyle(color: Colors.white)),
+                Text('Toilet flush: 5 liters', style: TextStyle(color: Colors.white)),
+                Text('Washing machine: 50 liters/load', style: TextStyle(color: Colors.white)),
+                Text('Dishwasher: 14 liters/cycle', style: TextStyle(color: Colors.white)),
+                Text('Tap running: 6 liters/minute', style: TextStyle(color: Colors.white)),
+                Text('Car washing (horse pipe): 250 liters', style: TextStyle(color: Colors.white)),
+                Text('Car washing (bucket): 30 liters', style: TextStyle(color: Colors.white)),
+                Text('\nReferences: www.ccw.org.uk', style: TextStyle(color: Colors.white, fontSize: 10)),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.white, // White text for the button
+                backgroundColor: const Color(0xFF002D62), // Dark blue background for the button
+              ),
+              child: const Text('Close'),
+              onPressed: () {
+                Navigator.of(context). pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+}
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +124,7 @@ class _WaterConsumptionWidgetState extends State<WaterConsumptionWidget> {
           child: Text(
             widget.question.question,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: const Color(0xFF1AA3DE),
+              color: const Color(0xFF002D62),
               fontWeight: FontWeight.bold,
             ),
             textAlign: TextAlign.left,
@@ -113,18 +158,22 @@ class _WaterConsumptionWidgetState extends State<WaterConsumptionWidget> {
                     color: Color(0xFF002D62),
                     fontWeight: FontWeight.bold,
                   ),
-                  onSubmitted: _handleSubmit, // Handle submission
+                  onSubmitted: _handleSubmit,
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
-                decoration: const BoxDecoration(
-                  border: Border(left: BorderSide(color: Color(0xFF002D62))),
-                ),
-                child: Text(
-                  'Liters',
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color:  const Color(0xFF002D62),
+              InkWell(
+                onTap: _showHelpDialog,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
+                  decoration: const BoxDecoration(
+                    border: Border(left: BorderSide(color: Color(0xFF002D62))),
+                  ),
+                  child: const Text(
+                    'Liters',
+                    style: TextStyle(
+                      color: Color(0xFF002D62),
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
@@ -135,6 +184,7 @@ class _WaterConsumptionWidgetState extends State<WaterConsumptionWidget> {
     );
   }
 }
+
 
 
 

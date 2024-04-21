@@ -55,10 +55,10 @@ final quiz = Quiz(
       ],
     ),
   Question(
-      color: '0XFFFFC0CB', // Pink color for the water consumption question
+      color: '0xFF002D62',
       question: 'Estimate how much water you used today :',
       answers: [
-        Answer('text box placeholder', 0, icon: 'text_box_icon.png'), // Placeholder for text input
+        Answer('text box placeholder', 0, icon: 'text_box_icon.png'),
       ],
 
     ),

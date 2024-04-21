@@ -60,6 +60,13 @@ void _handleSubmit(String value) {
   final consumption = int.tryParse(value) ?? 0;
   final scoreModel = Provider.of<ScoreModel>(context, listen: false);
 
+  // Check if the input is invalid or empty
+  if (!value.isNotEmpty) {
+    _showInvalidInputDialog();
+    return;
+  }
+
+  // Existing logic to update scores based on consumption
   if (consumption > 150) {
     scoreModel.decrement(10);
   } else if (consumption > 100) {
@@ -72,6 +79,31 @@ void _handleSubmit(String value) {
   _showFeedbackDialog(consumption);
 }
 
+void _showInvalidInputDialog() {
+  showDialog<void>(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text('Invalid Input'),
+        content: const SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Text('Please enter a valid number for liters of water used.'),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
 
 void _showFeedbackDialog(int consumption) {
   String feedback;

@@ -56,20 +56,62 @@ class WaterConsumptionWidget extends StatefulWidget {
 class _WaterConsumptionWidgetState extends State<WaterConsumptionWidget> {
   final TextEditingController _controller = TextEditingController();
 
-  void _handleSubmit(String value) {
-    final consumption = int.tryParse(value) ?? 0;
-    final scoreModel = Provider.of<ScoreModel>(context, listen: false);
+void _handleSubmit(String value) {
+  final consumption = int.tryParse(value) ?? 0;
+  final scoreModel = Provider.of<ScoreModel>(context, listen: false);
 
-    if (consumption > 150) {
-      scoreModel.decrement(10);
-    } else if (consumption > 100) {
-      scoreModel.increment(5);
-    } else {
-      scoreModel.increment(20);
-    }
+  if (consumption > 150) {
+    scoreModel.decrement(10);
+  } else if (consumption > 100) {
+    scoreModel.increment(5);
+  } else {
+    scoreModel.increment(20);
   }
 
-  
+  // Show feedback dialog after processing the score
+  _showFeedbackDialog(consumption);
+}
+
+
+void _showFeedbackDialog(int consumption) {
+  String feedback;
+  // Define feedback based on the consumption value
+  if (consumption > 187) {
+    feedback = 'Your consumption is above the average in Portugal (187 liters/day) which is already one of the worse in Europe. Start using less water in everyday tasks, to help keep mother Earth safe!';
+  } else if (consumption > 145 && consumption <= 187) {
+    feedback = 'You are using water at a high rate, close to the high average in Portugal and above average in the World. You should consider reducing your water consumption?';
+  } else if (consumption > 100 && consumption <= 145) {
+    feedback = 'Your water usage is good, better than the average person. Keep it up!';
+  } else {
+    feedback = 'Excellent! Your water usage is well below average. You are doing great in conserving water!';
+  }
+
+  // Show dialog with feedback
+  showDialog<void>(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text('Water Consumption Feedback'),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Text(feedback),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
 void _showHelpDialog() {
     showDialog<void>(
       context: context,

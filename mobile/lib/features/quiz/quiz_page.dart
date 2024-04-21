@@ -55,6 +55,7 @@ class WaterConsumptionWidget extends StatefulWidget {
 
 class _WaterConsumptionWidgetState extends State<WaterConsumptionWidget> {
   final TextEditingController _controller = TextEditingController();
+  int? lastConsumption;
 
 void _handleSubmit(String value) {
   final consumption = int.tryParse(value) ?? 0;
@@ -66,18 +67,36 @@ void _handleSubmit(String value) {
     return;
   }
 
-  // Existing logic to update scores based on consumption
-  if (consumption > 150) {
+  // Update scores based on consumption, comparing with lastConsumption
+  if (lastConsumption != null) {
+    // Adjust score based on previous input
+    if (lastConsumption! > 150) {
+      scoreModel.increment(10);  // Undo previous decrement
+    } else if (lastConsumption! > 110) {
+      scoreModel.decrement(5);  // Undo previous increment
+    } else {
+      scoreModel.decrement(20);  // Undo previous increment
+    }
+  }
+
+  // Set new score based on current input
+  if (consumption > 187) {
+    scoreModel.decrement(20);
+  } else if (consumption > 150) {
     scoreModel.decrement(10);
-  } else if (consumption > 100) {
+  } else if (consumption > 110) {
     scoreModel.increment(5);
   } else {
     scoreModel.increment(20);
   }
 
+  // Update lastConsumption
+  lastConsumption = consumption;
+
   // Show feedback dialog after processing the score
   _showFeedbackDialog(consumption);
 }
+
 
 void _showInvalidInputDialog() {
   showDialog<void>(

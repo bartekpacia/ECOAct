@@ -19,29 +19,112 @@ class QuizRoute extends MaterialPageRoute<void> {
         );
 }
 
+
+
 class QuizScreen extends StatelessWidget {
   const QuizScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // final selectedQuizIndexes =
-    //     useState([for (final question in quiz.questions) 0]);
-
     return Scaffold(
       appBar: AppBar(title: const Text('QuizScreen')),
       body: ListView(
         children: [
           for (final question in quiz.questions)
-            AnswersList(
-              question: question,
-              // selectedAnswerText: 'bicycle',
-              onAnswerSelected: (answer) {},
-            ),
+            if (question.question == 'Estimate how much water you used today :')
+              WaterConsumptionWidget(question: question)
+            else
+              AnswersList(
+                question: question,
+                onAnswerSelected: (answer) {},
+              ),
         ],
       ),
     );
   }
 }
+
+class WaterConsumptionWidget extends StatefulWidget {
+
+  const WaterConsumptionWidget({super.key, required this.question});
+  final Question question;
+
+  @override
+  _WaterConsumptionWidgetState createState() => _WaterConsumptionWidgetState();
+}
+
+class _WaterConsumptionWidgetState extends State<WaterConsumptionWidget> {
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 16, top: 24, bottom: 8),
+          child: Text(
+            widget.question.question,
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+              color: const Color(0xFF1AA3DE), // Light blue color
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.left,
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 16),
+          decoration: BoxDecoration(
+            color: const Color(0xFF1AA3DE).withOpacity(0.2), // Lighter shade for the input background
+            border: Border.all(color: const Color(0xFF002D62), width: 4), // Very dark blue color for the border, thicker width
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _controller,
+                  keyboardType: TextInputType.number,
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                    hintText: 'Enter liters',
+                    hintStyle: const TextStyle(color: Color(0xFF002D62)), // Hint text color
+                    fillColor: Colors.transparent,
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                  style: const TextStyle(
+                    color: Color(0xFF002D62), // Text color
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
+                decoration: const BoxDecoration(
+                  border: Border(left: BorderSide(color: Color(0xFF002D62))), // Divider
+                ),
+                child: Text(
+                  'Liters',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color:  const Color(0xFF002D62), // Text color
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+
+
+
 
 class AnswersList extends StatefulWidget {
   const AnswersList({

@@ -56,6 +56,19 @@ class WaterConsumptionWidget extends StatefulWidget {
 class _WaterConsumptionWidgetState extends State<WaterConsumptionWidget> {
   final TextEditingController _controller = TextEditingController();
 
+  void _handleSubmit(String value) {
+    final int consumption = int.tryParse(value) ?? 0;
+    final scoreModel = Provider.of<ScoreModel>(context, listen: false);
+
+    if (consumption > 143) {
+      scoreModel.decrement(10); // Penalize high water usage
+    } else if (consumption > 100) {
+      scoreModel.increment(5);  // Reward moderate water usage
+    } else {
+      scoreModel.increment(20); // Reward low water usage
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -66,7 +79,7 @@ class _WaterConsumptionWidgetState extends State<WaterConsumptionWidget> {
           child: Text(
             widget.question.question,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: const Color(0xFF1AA3DE), // Light blue color
+              color: const Color(0xFF1AA3DE),
               fontWeight: FontWeight.bold,
             ),
             textAlign: TextAlign.left,
@@ -75,8 +88,8 @@ class _WaterConsumptionWidgetState extends State<WaterConsumptionWidget> {
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 16),
           decoration: BoxDecoration(
-            color: const Color(0xFF1AA3DE).withOpacity(0.2), // Lighter shade for the input background
-            border: Border.all(color: const Color(0xFF002D62), width: 4), // Very dark blue color for the border, thicker width
+            color: const Color(0xFF1AA3DE).withOpacity(0.2),
+            border: Border.all(color: const Color(0xFF002D62), width: 4),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(
@@ -88,7 +101,7 @@ class _WaterConsumptionWidgetState extends State<WaterConsumptionWidget> {
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
                     hintText: 'Enter liters',
-                    hintStyle: const TextStyle(color: Color(0xFF002D62)), // Hint text color
+                    hintStyle: const TextStyle(color: Color(0xFF002D62)),
                     fillColor: Colors.transparent,
                     filled: true,
                     border: OutlineInputBorder(
@@ -97,20 +110,21 @@ class _WaterConsumptionWidgetState extends State<WaterConsumptionWidget> {
                     ),
                   ),
                   style: const TextStyle(
-                    color: Color(0xFF002D62), // Text color
+                    color: Color(0xFF002D62),
                     fontWeight: FontWeight.bold,
                   ),
+                  onSubmitted: _handleSubmit, // Handle submission
                 ),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
                 decoration: const BoxDecoration(
-                  border: Border(left: BorderSide(color: Color(0xFF002D62))), // Divider
+                  border: Border(left: BorderSide(color: Color(0xFF002D62))),
                 ),
                 child: Text(
                   'Liters',
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color:  const Color(0xFF002D62), // Text color
+                    color:  const Color(0xFF002D62),
                   ),
                 ),
               ),

@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/features/quiz/quiz_models.dart';
 import 'package:mobile/resources/theme.dart';
@@ -24,7 +25,7 @@ class QuizScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final answers = Provider.of<AnswersChangeNotifier>(context).answers;
+    final answersChangeNotifier = Provider.of<AnswersChangeNotifier>(context);
 
     return Scaffold(
       appBar: AppBar(title: const Text('QuizScreen')),
@@ -33,10 +34,24 @@ class QuizScreen extends StatelessWidget {
           for (int i = 0; i < quiz.questions.length; i++)
             AnswersList(
               question: quiz.questions[i],
-              selectedAnswers: answers
-                  .firstWhere((elem) => elem.questionId == 'question_$i')
-                  .answers,
-              onAnswerSelected: (answer) {},
+              selectedAnswers: answersChangeNotifier.answers
+                      .firstWhereOrNull(
+                        (elem) => elem.questionId == 'question_$i',
+                      )
+                      ?.answers ??
+                  [],
+              onAnswerSelected: (answer) {
+                answersChangeNotifier.selectAnswer(
+                  questionId: quiz.questions[i].id,
+                  answer: answer,
+                );
+              },
+              onAnswerUnselected: (answer) {
+                answersChangeNotifier.unselectAnswer(
+                  questionId: quiz.questions[i].id,
+                  answer: answer,
+                );
+              },
             ),
         ],
       ),
@@ -44,23 +59,20 @@ class QuizScreen extends StatelessWidget {
   }
 }
 
-class AnswersList extends StatefulWidget {
+class AnswersList extends StatelessWidget {
   const AnswersList({
     super.key,
     required this.question,
-    required this.onAnswerSelected,
     required this.selectedAnswers,
+    required this.onAnswerSelected,
+    required this.onAnswerUnselected,
   });
 
   final Question question;
-  final void Function(Answer) onAnswerSelected;
   final List<String> selectedAnswers;
+  final ValueChanged<String> onAnswerSelected;
+  final ValueChanged<String> onAnswerUnselected;
 
-  @override
-  State<AnswersList> createState() => _AnswersListState();
-}
-
-class _AnswersListState extends State<AnswersList> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -69,9 +81,9 @@ class _AnswersListState extends State<AnswersList> {
         Padding(
           padding: const EdgeInsets.only(left: 16, top: 24, bottom: 16),
           child: Text(
-            widget.question.question,
+            question.question,
             style: context.textTheme.bodyLarge?.copyWith(
-              color: Color(int.parse(widget.question.color)).darken(),
+              color: Color(int.parse(question.color)).darken(),
               fontWeight: FontWeight.bold,
             ),
             textAlign: TextAlign.left,
@@ -80,35 +92,22 @@ class _AnswersListState extends State<AnswersList> {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: widget.question.answers
+            children: question.answers
                 .map(
                   (answer) => Padding(
                     padding: const EdgeInsets.all(8),
                     child: GestureDetector(
                       onTap: () {
-                        Provider.of<AnswersChangeNotifier>(
-                          context,
-                          listen: false,
-                        ).toggle(q);
-
-                        return;
-
-                        setState(() {
-                          if (selectedAnswers.contains(answer.answer)) {
-                            selectedAnswers.remove(answer.answer);
-                            Provider.of<ScoreModel>(context, listen: false)
-                                .decrement(answer.points);
-                          } else {
-                            selectedAnswers.add(answer.answer);
-                            Provider.of<ScoreModel>(context, listen: false)
-                                .increment(answer.points);
-                          }
-                        });
+                        if (selectedAnswers.contains(answer.answer)) {
+                          onAnswerUnselected(answer.answer);
+                        } else {
+                          onAnswerSelected(answer.answer);
+                        }
                       },
                       child: SingleAnswerTile(
                         text: answer.answer,
                         assetPath: 'assets/images/answers/${answer.icon}',
-                        color: Color(int.parse(widget.question.color)),
+                        color: Color(int.parse(question.color)),
                         selected: selectedAnswers.contains(answer.answer),
                       ),
                     ),

@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 
-class SingleQuestionAnswers {
-  SingleQuestionAnswers({required this.questionId, required this.answers});
+class AnswersToQuestion {
+  AnswersToQuestion({required this.questionId, required this.answers});
 
   final String questionId;
   final List<String> answers;
@@ -19,24 +19,38 @@ class AnswersChangeNotifier extends ChangeNotifier {
   }
 
   final FirebaseFirestore _firestore;
-  List<SingleQuestionAnswers> _answers = [];
-  List<SingleQuestionAnswers> get answers => _answers;
+  List<AnswersToQuestion> _answers = [];
+  List<AnswersToQuestion> get answers => _answers;
   StreamSubscription<void>? _subscription;
 
-  Future<void> toggle(String questionId, {required bool selected}) async {
-    await _firestore
-        .collection('answers')
-        .doc(questionId)
-        .set({'selected': selected});
+  Future<void> selectAnswer({
+    required String questionId,
+    required String answer,
+  }) async {
+    await _firestore.collection('answers').doc(questionId).update({
+      'selectedAnswers': FieldValue.arrayUnion([answer]),
+    });
   }
 
-  Stream<List<SingleQuestionAnswers>> _getAnswers() {
+  Future<void> unselectAnswer({
+    required String questionId,
+    required String answer,
+  }) async {
+    await _firestore.collection('answers').doc(questionId).update({
+      'selectedAnswers': FieldValue.arrayRemove([answer]),
+    });
+  }
+
+  Stream<List<AnswersToQuestion>> _getAnswers() {
+    // TODO: Rename the "answers" collection to "answersToQuestions"
     return _firestore.collection('answers').snapshots().map((snapshot) {
       final answers = snapshot.docs.map((doc) {
         final data = doc.data();
-        return SingleQuestionAnswers(
+        return AnswersToQuestion(
           questionId: doc.id,
-          answers: data['answers'] as List<String>,
+          answers: (data['selectedAnswers'] as List<dynamic>)
+              .map((e) => e.toString())
+              .toList(),
         );
       }).toList();
 

@@ -1,0 +1,11 @@
+appId: com.example.mobile
+name: Sign in test (good credentials)
+---
+- launchApp:
+    clearState: true
+- tapOn: Email
+- inputText: example@example.com
+- tapOn: Password
+- inputText: correct
+- tapOn: Sign in
+- assertVisible: Welcome, user!

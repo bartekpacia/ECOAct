@@ -31,28 +31,33 @@ class QuizScreen extends StatelessWidget {
       appBar: AppBar(title: const Text('QuizScreen')),
       body: ListView(
         children: [
-          for (int i = 0; i < quiz.questions.length; i++)
-            AnswersList(
-              question: quiz.questions[i],
+          ...quiz.questions.mapIndexed((index, question) {
+            if (question.type == QuestionType.intValue) {
+              return WaterConsumptionWidget(question: question);
+            }
+
+            return AnswersList(
+              question: question,
               selectedAnswers: answersChangeNotifier.answers
                       .firstWhereOrNull(
-                        (elem) => elem.questionId == 'question_$i',
+                        (elem) => elem.questionId == 'question_$index',
                       )
                       ?.answers ??
                   [],
               onAnswerSelected: (answer) {
                 answersChangeNotifier.selectAnswer(
-                  questionId: quiz.questions[i].id,
+                  questionId: question.id,
                   answer: answer,
                 );
               },
               onAnswerUnselected: (answer) {
                 answersChangeNotifier.unselectAnswer(
-                  questionId: quiz.questions[i].id,
+                  questionId: question.id,
                   answer: answer,
                 );
               },
-            ),
+            );
+          }),
         ],
       ),
     );

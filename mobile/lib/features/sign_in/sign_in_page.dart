@@ -19,8 +19,23 @@ class SignInRoute extends MaterialPageRoute<void> {
         );
 }
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
+
+  @override
+  State<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
+  late final TextEditingController _emailTextEditingController;
+  late final TextEditingController _passwordTextEditingController;
+
+  @override
+  void initState() {
+    super.initState();
+    _emailTextEditingController = TextEditingController();
+    _passwordTextEditingController = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,9 +85,16 @@ class SignInScreen extends StatelessWidget {
                     children: [
                       Text('Sign in', style: context.textTheme.titleLarge),
                       const SizedBox(height: 6),
-                      const EcoTextField(hintText: 'Email'),
+                      EcoTextField(
+                        controller: _emailTextEditingController,
+                        hintText: 'Email',
+                      ),
                       const SizedBox(height: 6),
-                      const EcoTextField(password: true, hintText: 'Password'),
+                      EcoTextField(
+                        controller: _passwordTextEditingController,
+                        password: true,
+                        hintText: 'Password',
+                      ),
                       const SizedBox(height: 6),
                       InkWell(
                         onTap: () {},
@@ -89,7 +111,29 @@ class SignInScreen extends StatelessWidget {
                   Center(
                     child: EcoButton(
                       text: 'Sign in',
-                      onPressed: () => GoCalendarRoute().push<void>(context),
+                      onPressed: () {
+                        final emailOk = _emailTextEditingController.text ==
+                            'example@example.com';
+                        final passwordOk =
+                            _passwordTextEditingController.text == 'correct';
+
+                        print('email: ${_emailTextEditingController.text}');
+                        print(
+                          'password: ${_passwordTextEditingController.text}',
+                        );
+                        print('emailOk: $emailOk, passwordOk: $passwordOk');
+
+                        if (emailOk && passwordOk) {
+                          GoCalendarRoute().push<void>(context);
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Invalid email or password'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        }
+                      },
                     ),
                   ),
                   const SizedBox(height: 18),

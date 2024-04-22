@@ -25,6 +25,7 @@ class EcoTextField extends StatelessWidget {
     );
 
     return TextField(
+      controller: controller,
       cursorColor: MediaQuery.of(context).platformBrightness == Brightness.light
           ? Colors.black
           : Colors.white,

@@ -32,8 +32,8 @@ class ScoreScreen extends StatelessWidget {
               children: [
                 Icon(
                   Icons.public,
-                  size: 200,  // Size of the icon
-                  color: Colors.blue.shade100,  // Contrasting color
+                  size: 200,
+                  color: Colors.blue.shade100,
                 ),
                 Text(
                   model.score.toString(),

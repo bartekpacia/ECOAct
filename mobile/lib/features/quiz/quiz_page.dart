@@ -59,8 +59,6 @@ class AnswersList extends StatefulWidget {
 }
 
 class _AnswersListState extends State<AnswersList> {
-  // final String selectedAnswerText;
-
   Set<String> selectedAnswers = {};
   int score = 0;
 
@@ -89,6 +87,11 @@ class _AnswersListState extends State<AnswersList> {
                     padding: const EdgeInsets.all(8),
                     child: GestureDetector(
                       onTap: () {
+                        Provider.of<ScoreNotifier>(context, listen: false)
+                            .toggle();
+
+                        return;
+
                         setState(() {
                           if (selectedAnswers.contains(answer.answer)) {
                             selectedAnswers.remove(answer.answer);

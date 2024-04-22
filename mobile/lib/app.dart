@@ -29,19 +29,22 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ScoreModel>(
-      create: (context) => ScoreModel(),
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        routerConfig: router,
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [Locale('en'), Locale('pt')],
-        theme: AppTheme.light(),
-        darkTheme: AppTheme.dark(),
+    return ChangeNotifierProvider(
+      create: (context) => ScoreNotifier(),
+      child: ChangeNotifierProvider<ScoreModel>(
+        create: (context) => ScoreModel(),
+        child: MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          routerConfig: router,
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [Locale('en'), Locale('pt')],
+          theme: AppTheme.light(),
+          darkTheme: AppTheme.dark(),
+        ),
       ),
     );
   }

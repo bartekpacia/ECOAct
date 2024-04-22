@@ -64,7 +64,8 @@ final quiz = Quiz(
         Answer('made at home',25, icon: 'home.png'),
       ],
     ),
-    Question(
+    
+        Question(
       color: '0X6FED2FC8',
       question: 'Did you buy clothes today, if yes what type?',
       answers: [
@@ -79,7 +80,17 @@ final quiz = Quiz(
         Answer('Renting or Swapping Clothes',10, icon: 'swap.png'),
         Answer('Local or Artisanal Fashion',10, icon: 'clothes.png'),
         Answer('others',0, icon: 'dress.png'),
+      ],),
+  Question(
+
+      color: '0xFF002D62',
+      question: 'Estimate how much water you used today :',
+      answers: [
+        Answer('text box placeholder', 0, icon: 'text_box_icon.png'),
       ],
+
+
+
     ),
   ],
 );

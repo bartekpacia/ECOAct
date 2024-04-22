@@ -29,34 +29,39 @@ class CalendarScreen extends HookWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('CalendarScreen')),
       body: Center(
-        child: TableCalendar<void>(
-          onFormatChanged: (_) {},
-          firstDay: DateTime.utc(2005, 4, 2),
-          lastDay: DateTime.utc(2030, 3, 14),
-          focusedDay: DateTime(2024, 3),
-          availableCalendarFormats: const {CalendarFormat.month: 'Month'},
-          selectedDayPredicate: (selectedDayCandidate) {
-            return false;
-          },
-          onDaySelected: (newSelectedDay, newFocusedDay) {
-            selectedDay.value = newSelectedDay;
-            focusedDay.value = newFocusedDay;
+        child: Column(
+          children: [
+            TableCalendar<void>(
+              onFormatChanged: (_) {},
+              firstDay: DateTime.utc(2005, 4, 2),
+              lastDay: DateTime.utc(2030, 3, 14),
+              focusedDay: DateTime(2024, 3),
+              availableCalendarFormats: const {CalendarFormat.month: 'Month'},
+              selectedDayPredicate: (selectedDayCandidate) {
+                return false;
+              },
+              onDaySelected: (newSelectedDay, newFocusedDay) {
+                selectedDay.value = newSelectedDay;
+                focusedDay.value = newFocusedDay;
 
-            GoQuizRoute().push<void>(context);
-          },
-          calendarBuilders: CalendarBuilders(
-            outsideBuilder: (context, day, focusedDay) {
-              return Center(
-                child: Text(
-                  day.day.toString(),
-                  style: const TextStyle(color: Colors.grey),
-                ),
-              );
-            },
-            defaultBuilder: (context, day, focusedDay) {
-              return Center(child: Text(day.day.toString()));
-            },
-          ),
+                GoQuizRoute().push<void>(context);
+              },
+              calendarBuilders: CalendarBuilders(
+                outsideBuilder: (context, day, focusedDay) {
+                  return Center(
+                    child: Text(
+                      day.day.toString(),
+                      style: const TextStyle(color: Colors.grey),
+                    ),
+                  );
+                },
+                defaultBuilder: (context, day, focusedDay) {
+                  return Center(child: Text(day.day.toString()));
+                },
+              ),
+            ),
+            const Text('Welcome, user!'),
+          ],
         ),
       ),
     );

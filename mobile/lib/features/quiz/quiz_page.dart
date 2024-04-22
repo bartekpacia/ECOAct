@@ -24,17 +24,18 @@ class QuizScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final selectedQuizIndexes =
-    //     useState([for (final question in quiz.questions) 0]);
+    final answers = Provider.of<AnswersChangeNotifier>(context).answers;
 
     return Scaffold(
       appBar: AppBar(title: const Text('QuizScreen')),
       body: ListView(
         children: [
-          for (final question in quiz.questions)
+          for (int i = 0; i < quiz.questions.length; i++)
             AnswersList(
-              question: question,
-              // selectedAnswerText: 'bicycle',
+              question: quiz.questions[i],
+              selectedAnswers: answers
+                  .firstWhere((elem) => elem.questionId == 'question_$i')
+                  .answers,
               onAnswerSelected: (answer) {},
             ),
         ],
@@ -48,20 +49,18 @@ class AnswersList extends StatefulWidget {
     super.key,
     required this.question,
     required this.onAnswerSelected,
-    // required this.selectedAnswerText,
+    required this.selectedAnswers,
   });
 
   final Question question;
   final void Function(Answer) onAnswerSelected;
+  final List<String> selectedAnswers;
 
   @override
   State<AnswersList> createState() => _AnswersListState();
 }
 
 class _AnswersListState extends State<AnswersList> {
-  Set<String> selectedAnswers = {};
-  int score = 0;
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -87,8 +86,10 @@ class _AnswersListState extends State<AnswersList> {
                     padding: const EdgeInsets.all(8),
                     child: GestureDetector(
                       onTap: () {
-                        Provider.of<ScoreNotifier>(context, listen: false)
-                            .toggle();
+                        Provider.of<AnswersChangeNotifier>(
+                          context,
+                          listen: false,
+                        ).toggle(q);
 
                         return;
 
@@ -104,7 +105,7 @@ class _AnswersListState extends State<AnswersList> {
                           }
                         });
                       },
-                      child: AnswerTile(
+                      child: SingleAnswerTile(
                         text: answer.answer,
                         assetPath: 'assets/images/answers/${answer.icon}',
                         color: Color(int.parse(widget.question.color)),
@@ -121,8 +122,8 @@ class _AnswersListState extends State<AnswersList> {
   }
 }
 
-class AnswerTile extends StatelessWidget {
-  const AnswerTile({
+class SingleAnswerTile extends StatelessWidget {
+  const SingleAnswerTile({
     super.key,
     required this.text,
     required this.assetPath,

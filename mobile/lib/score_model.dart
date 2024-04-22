@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 
@@ -8,26 +10,44 @@ class SingleQuestionAnswers {
   final List<String> answers;
 }
 
-class ScoreNotifier extends ChangeNotifier {
-  ScoreNotifier() : _firestore = FirebaseFirestore.instance;
-
-  final FirebaseFirestore _firestore;
-
-  Future<void> toggle(String questionId, bool selected) async {
-    _firestore.collection('answers').doc(questionId).set(
-      
-    )
+class AnswersChangeNotifier extends ChangeNotifier {
+  AnswersChangeNotifier() : _firestore = FirebaseFirestore.instance {
+    _subscription = _getAnswers().listen((answers) {
+      _answers = answers;
+      notifyListeners();
+    });
   }
 
-  Stream<List<SingleQuestionAnswers>> answers() {
+  final FirebaseFirestore _firestore;
+  List<SingleQuestionAnswers> _answers = [];
+  List<SingleQuestionAnswers> get answers => _answers;
+  StreamSubscription<void>? _subscription;
+
+  Future<void> toggle(String questionId, {required bool selected}) async {
+    await _firestore
+        .collection('answers')
+        .doc(questionId)
+        .set({'selected': selected});
+  }
+
+  Stream<List<SingleQuestionAnswers>> _getAnswers() {
     return _firestore.collection('answers').snapshots().map((snapshot) {
       final answers = snapshot.docs.map((doc) {
         final data = doc.data();
-        return SingleQuestionAnswers(answers: data['answers'] as List<String>);
+        return SingleQuestionAnswers(
+          questionId: doc.id,
+          answers: data['answers'] as List<String>,
+        );
       }).toList();
 
       return answers;
     });
+  }
+
+  @override
+  void dispose() {
+    _subscription?.cancel();
+    super.dispose();
   }
 }
 

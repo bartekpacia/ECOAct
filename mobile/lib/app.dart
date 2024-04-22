@@ -29,8 +29,8 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ScoreNotifier(),
+    return ChangeNotifierProvider<AnswersChangeNotifier>(
+      create: (context) => AnswersChangeNotifier(),
       child: ChangeNotifierProvider<ScoreModel>(
         create: (context) => ScoreModel(),
         child: MaterialApp.router(

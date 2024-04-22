@@ -6,15 +6,19 @@ class Quiz {
   final List<Question> questions;
 }
 
+enum QuestionType { multiChoice, intValue }
+
 class Question {
   Question({
     required this.id,
+    required this.type,
     required this.question,
     required this.color,
     required this.answers,
   });
 
   final String id;
+  final QuestionType type;
   final String question;
   final String color;
   final List<Answer> answers;
@@ -32,6 +36,7 @@ final quiz = Quiz(
   questions: [
     Question(
       id: 'question_0',
+      type: QuestionType.multiChoice,
       question: 'What means of transportation did you use today?',
       color: '0XFF1AA3DE',
       answers: [
@@ -50,6 +55,7 @@ final quiz = Quiz(
     ),
     Question(
       id: 'question_1',
+      type: QuestionType.multiChoice,
       question: 'What did you eat today?',
       color: '0XFFA1CB8D',
       answers: [

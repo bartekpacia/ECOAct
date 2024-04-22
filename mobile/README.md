@@ -21,10 +21,18 @@ flutter analyze
 dart run custom_lint
 ```
 
-### Run tests
+### Run unit tests
 
 ```console
 flutter test
+```
+
+### Run end-to-end UI tests
+
+Make sure you have [Maestro](https://maestro.mobile.dev) installed. Then:
+
+```console
+maestro test ./maestro/<test_name>.yaml
 ```
 
 ### Run formatter

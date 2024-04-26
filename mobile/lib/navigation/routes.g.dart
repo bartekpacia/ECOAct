@@ -96,6 +96,16 @@ RouteBase get $goHomeShellRouteData => StatefulShellRouteData.$route(
             ),
           ],
         ),
+        StatefulShellBranchData.$branch(
+          navigatorKey: NewsBranchData.$navigatorKey,
+          restorationScopeId: NewsBranchData.$restorationScopeId,
+          routes: [
+            GoRouteData.$route(
+              path: '/news',
+              factory: $GoNewsRouteExtension._fromState,
+            ),
+          ],
+        ),
       ],
     );
 
@@ -161,6 +171,23 @@ extension $GoScoreRouteExtension on GoScoreRoute {
   String get location => GoRouteData.$location(
         '/score',
       );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $GoNewsRouteExtension on GoNewsRoute {
+  static GoNewsRoute _fromState(GoRouterState state) => GoNewsRoute();
+
+  String get location => GoRouteData.$location(
+    '/news',
+  );
 
   void go(BuildContext context) => context.go(location);
 

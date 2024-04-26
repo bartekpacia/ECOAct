@@ -40,9 +40,10 @@ class ScaffoldWithNavBar extends StatelessWidget {
             ),
             const BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
             const BottomNavigationBarItem(icon: Icon(Icons.public), label: ''),
+            const BottomNavigationBarItem(icon: Icon(Icons.public), label: ''),
           ];
 
-          assert(navigationShell.route.branches.length == 3);
+          assert(navigationShell.route.branches.length == 4);
 
           return items;
         }(),

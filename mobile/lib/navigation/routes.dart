@@ -5,6 +5,7 @@ import 'package:mobile/features/home/home_page.dart';
 import 'package:mobile/features/profile/profile_page.dart';
 import 'package:mobile/features/quiz/quiz_page.dart';
 import 'package:mobile/features/score/score_page.dart';
+import 'package:mobile/features/news/news_page.dart';
 import 'package:mobile/features/sign_in/sign_in_page.dart';
 import 'package:mobile/features/sign_up/sign_up_page.dart';
 
@@ -25,6 +26,10 @@ final _profileNavigatorKey = GlobalKey<NavigatorState>(
 
 final _scoreNavigatorKey = GlobalKey<NavigatorState>(
   debugLabel: 'scoreBranchNavigator',
+);
+
+final _newsNavigatorKey = GlobalKey<NavigatorState>(
+  debugLabel: 'newsBranchNavigator',
 );
 
 @TypedGoRoute<GoSignInRoute>(path: '/sign_in')
@@ -69,6 +74,13 @@ class GoSignUpRoute extends GoRouteData {
         ),
       ],
     ),
+    TypedStatefulShellBranch<NewsBranchData>(
+      routes: <TypedRoute<RouteData>>[
+        TypedGoRoute<GoScoreRoute>(
+          path: '/news',
+        ),
+      ],
+    ),
   ],
 )
 class GoHomeShellRouteData extends StatefulShellRouteData {
@@ -110,6 +122,12 @@ class ScoreBranchData extends StatefulShellBranchData {
   static final GlobalKey<NavigatorState> $navigatorKey = _scoreNavigatorKey;
   static const String $restorationScopeId = 'scoreRestorationScopeId';
 }
+class NewsBranchData extends StatefulShellBranchData {
+  const NewsBranchData();
+
+  static final GlobalKey<NavigatorState> $navigatorKey = _newsNavigatorKey;
+  static const String $restorationScopeId = 'newsRestorationScopeId';
+}
 
 class ProfileBranchData extends StatefulShellBranchData {
   const ProfileBranchData();
@@ -143,5 +161,12 @@ class GoScoreRoute extends GoRouteData {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return const ScorePage();
+  }
+}
+
+class GoNewsRoute extends GoRouteData {
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return const NewsPage();
   }
 }

@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/features/quiz/quiz_models.dart';
 import 'package:mobile/resources/theme.dart';
@@ -24,19 +25,159 @@ class QuizScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final answersChangeNotifier = Provider.of<AnswersChangeNotifier>(context);
+
     return Scaffold(
       appBar: AppBar(title: const Text('QuizScreen')),
       body: ListView(
         children: [
-          for (final question in quiz.questions)
-            if (question.question == 'Estimate how much water you used today :')
-              WaterConsumptionWidget(question: question)
-            else
-              AnswersList(
-                question: question,
-                onAnswerSelected: (answer) {},
-              ),
+          ...quiz.questions.mapIndexed((index, question) {
+            if (question.type == QuestionType.intValue) {
+              return WaterConsumptionWidget(question: question);
+            }
+
+            return AnswersList(
+              question: question,
+              selectedAnswers: answersChangeNotifier.answers
+                      .firstWhereOrNull(
+                        (elem) => elem.questionId == 'question_$index',
+                      )
+                      ?.answers ??
+                  [],
+              onAnswerSelected: (answer) {
+                answersChangeNotifier.selectAnswer(
+                  questionId: question.id,
+                  answer: answer,
+                );
+              },
+              onAnswerUnselected: (answer) {
+                answersChangeNotifier.unselectAnswer(
+                  questionId: question.id,
+                  answer: answer,
+                );
+              },
+            );
+          }),
         ],
+      ),
+    );
+  }
+}
+
+class AnswersList extends StatelessWidget {
+  const AnswersList({
+    super.key,
+    required this.question,
+    required this.selectedAnswers,
+    required this.onAnswerSelected,
+    required this.onAnswerUnselected,
+  });
+
+  final Question question;
+  final List<String> selectedAnswers;
+  final ValueChanged<String> onAnswerSelected;
+  final ValueChanged<String> onAnswerUnselected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 16, top: 24, bottom: 16),
+          child: Text(
+            question.question,
+            style: context.textTheme.bodyLarge?.copyWith(
+              color: Color(int.parse(question.color)).darken(),
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.left,
+          ),
+        ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: question.answers
+                .map(
+                  (answer) => Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: GestureDetector(
+                      onTap: () {
+                        if (selectedAnswers.contains(answer.answer)) {
+                          onAnswerUnselected(answer.answer);
+                        } else {
+                          onAnswerSelected(answer.answer);
+                        }
+                      },
+                      child: SingleAnswerTile(
+                        text: answer.answer,
+                        assetPath: 'assets/images/answers/${answer.icon}',
+                        color: Color(int.parse(question.color)),
+                        selected: selectedAnswers.contains(answer.answer),
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class SingleAnswerTile extends StatelessWidget {
+  const SingleAnswerTile({
+    super.key,
+    required this.text,
+    required this.assetPath,
+    required this.color,
+    required this.selected,
+  });
+
+  final String text;
+  final String assetPath;
+  final Color color;
+  final bool selected;
+
+  @override
+  Widget build(BuildContext context) {
+    final darkerColor = color.darken(amount: 0.2);
+
+    return Container(
+      decoration: BoxDecoration(
+        color: selected ? color : Colors.transparent,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(width: 4, color: darkerColor),
+      ),
+      child: Container(
+        width: 100,
+        height: 100,
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          children: [
+            Expanded(
+              child: Image.asset(
+                assetPath,
+                color: selected ? context.colorScheme.onPrimary : darkerColor,
+              ),
+            ),
+            Expanded(
+              child: Center(
+                child: Text(
+                  text,
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  style: context.textTheme.bodyMedium?.copyWith(
+                    color:
+                        selected ? context.colorScheme.onPrimary : darkerColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -169,33 +310,51 @@ class _WaterConsumptionWidgetState extends State<WaterConsumptionWidget> {
       builder: (context) {
         return AlertDialog(
           backgroundColor: const Color(0xFF1AA3DE).withOpacity(
-              0.95), // Light blue background with slight opacity for elegance
+            0.95,
+          ), // Light blue background with slight opacity for elegance
           title: const Text(
             'Water Usage Help',
             style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold), // White text for the title
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ), // White text for the title
           ),
           content: const SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('Shower: 8 liters/minute',
-                    style: TextStyle(color: Colors.white)),
+                Text(
+                  'Shower: 8 liters/minute',
+                  style: TextStyle(color: Colors.white),
+                ),
                 Text('Bath: 80 liters', style: TextStyle(color: Colors.white)),
-                Text('Toilet flush: 5 liters',
-                    style: TextStyle(color: Colors.white)),
-                Text('Washing machine: 50 liters/load',
-                    style: TextStyle(color: Colors.white)),
-                Text('Dishwasher: 14 liters/cycle',
-                    style: TextStyle(color: Colors.white)),
-                Text('Tap running: 6 liters/minute',
-                    style: TextStyle(color: Colors.white)),
-                Text('Car washing (horse pipe): 250 liters',
-                    style: TextStyle(color: Colors.white)),
-                Text('Car washing (bucket): 30 liters',
-                    style: TextStyle(color: Colors.white)),
-                Text('\nReferences: www.ccw.org.uk',
-                    style: TextStyle(color: Colors.white, fontSize: 10)),
+                Text(
+                  'Toilet flush: 5 liters',
+                  style: TextStyle(color: Colors.white),
+                ),
+                Text(
+                  'Washing machine: 50 liters/load',
+                  style: TextStyle(color: Colors.white),
+                ),
+                Text(
+                  'Dishwasher: 14 liters/cycle',
+                  style: TextStyle(color: Colors.white),
+                ),
+                Text(
+                  'Tap running: 6 liters/minute',
+                  style: TextStyle(color: Colors.white),
+                ),
+                Text(
+                  'Car washing (horse pipe): 250 liters',
+                  style: TextStyle(color: Colors.white),
+                ),
+                Text(
+                  'Car washing (bucket): 30 liters',
+                  style: TextStyle(color: Colors.white),
+                ),
+                Text(
+                  '\nReferences: www.ccw.org.uk',
+                  style: TextStyle(color: Colors.white, fontSize: 10),
+                ),
               ],
             ),
           ),
@@ -204,7 +363,8 @@ class _WaterConsumptionWidgetState extends State<WaterConsumptionWidget> {
               style: TextButton.styleFrom(
                 foregroundColor: Colors.white, // White text for the button
                 backgroundColor: const Color(
-                    0xFF002D62), // Dark blue background for the button
+                  0xFF002D62,
+                ), // Dark blue background for the button
               ),
               child: const Text('Close'),
               onPressed: () {
@@ -285,138 +445,6 @@ class _WaterConsumptionWidgetState extends State<WaterConsumptionWidget> {
           ),
         ),
       ],
-    );
-  }
-}
-
-class AnswersList extends StatefulWidget {
-  const AnswersList({
-    super.key,
-    required this.question,
-    required this.onAnswerSelected,
-    // required this.selectedAnswerText,
-  });
-
-  final Question question;
-  final void Function(Answer) onAnswerSelected;
-
-  @override
-  State<AnswersList> createState() => _AnswersListState();
-}
-
-class _AnswersListState extends State<AnswersList> {
-  // final String selectedAnswerText;
-
-  Set<String> selectedAnswers = {};
-  int score = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 16, top: 24, bottom: 16),
-          child: Text(
-            widget.question.question,
-            style: context.textTheme.bodyLarge?.copyWith(
-              color: Color(int.parse(widget.question.color)).darken(),
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.left,
-          ),
-        ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: widget.question.answers
-                .map(
-                  (answer) => Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          if (selectedAnswers.contains(answer.answer)) {
-                            selectedAnswers.remove(answer.answer);
-                            Provider.of<ScoreModel>(context, listen: false)
-                                .decrement(answer.points);
-                          } else {
-                            selectedAnswers.add(answer.answer);
-                            Provider.of<ScoreModel>(context, listen: false)
-                                .increment(answer.points);
-                          }
-                        });
-                      },
-                      child: AnswerTile(
-                        text: answer.answer,
-                        assetPath: 'assets/images/answers/${answer.icon}',
-                        color: Color(int.parse(widget.question.color)),
-                        selected: selectedAnswers.contains(answer.answer),
-                      ),
-                    ),
-                  ),
-                )
-                .toList(),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class AnswerTile extends StatelessWidget {
-  const AnswerTile({
-    super.key,
-    required this.text,
-    required this.assetPath,
-    required this.color,
-    required this.selected,
-  });
-
-  final String text;
-  final String assetPath;
-  final Color color;
-  final bool selected;
-
-  @override
-  Widget build(BuildContext context) {
-    final darkerColor = color.darken(amount: 0.2);
-
-    return Container(
-      decoration: BoxDecoration(
-        color: selected ? color : Colors.transparent,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(width: 4, color: darkerColor),
-      ),
-      child: Container(
-        width: 100,
-        height: 100,
-        padding: const EdgeInsets.all(8),
-        child: Column(
-          children: [
-            Expanded(
-              child: Image.asset(
-                assetPath,
-                color: selected ? context.colorScheme.onPrimary : darkerColor,
-              ),
-            ),
-            Expanded(
-              child: Center(
-                child: Text(
-                  text,
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  style: context.textTheme.bodyMedium?.copyWith(
-                    color:
-                        selected ? context.colorScheme.onPrimary : darkerColor,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

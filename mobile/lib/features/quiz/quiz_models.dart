@@ -6,15 +6,21 @@ class Quiz {
   final List<Question> questions;
 }
 
+enum QuestionType { multiChoice, intValue }
+
 class Question {
   Question({
-    required this.color,
+    required this.id,
+    required this.type,
     required this.question,
+    required this.color,
     required this.answers,
   });
 
-  final String color;
+  final String id;
+  final QuestionType type;
   final String question;
+  final String color;
   final List<Answer> answers;
 }
 
@@ -29,31 +35,29 @@ class Answer {
 final quiz = Quiz(
   questions: [
     Question(
-      color: '0XFF1AA3DE',
+      id: 'question_0',
+      type: QuestionType.multiChoice,
       question: 'What means of transportation did you use today?',
+      color: '0XFF1AA3DE',
       answers: [
-        Answer('walked', 30, icon: 'walking.png'),
-        Answer('bicycle', 30, icon: 'bicycle.png'),
+        Answer(
+          'walked',
+          20,
+          icon: 'walking.png',
+        ),
+        Answer('bicycle', 20, icon: 'bicycle.png'),
         Answer('car', -10, icon: 'car.png'),
-        Answer('electric bicycle', 13, icon: 'electric_bicycle.png'),
+        Answer('electric bicycle', 15, icon: 'electric_bicycle.png'),
         Answer('electric car', -5, icon: 'electric_car.png'),
         Answer('motorcycle', -15, icon: 'motorcycle.png'),
-        Answer('train', 11, icon: 'train.png'),
-        Answer('bus', 7, icon: 'bus.png'),
-        Answer('scooter', -5, icon: 'scooter.png'),
-        Answer('electric scooter', 2, icon: 'eletricscooter.png'),
-        Answer('tram', 12, icon: 'tram.png'),
-        Answer('subway', 12, icon: 'subway.png'),
-        Answer('sail boat', -20, icon: 'sail-boat.png'),
-        Answer('ship', -30, icon: 'cruise-ship.png'),
-        Answer('airplane', -35, icon: 'plane.png'),
-        Answer('helicopter', -40, icon: 'helicopter.png'),
-        Answer('private airplane', -70, icon: 'private_plane.png'),
+        Answer('train', 15, icon: 'train.png'),
       ],
     ),
     Question(
-      color: '0XFFA1CB8D',
+      id: 'question_1',
+      type: QuestionType.multiChoice,
       question: 'What did you eat today?',
+      color: '0XFFA1CB8D',
       answers: [
         Answer('meat', 5, icon: 'meat.png'),
         Answer('fish', 5, icon: 'fish.png'),
@@ -65,6 +69,8 @@ final quiz = Quiz(
       ],
     ),
     Question(
+      id: 'question_2',
+      type: QuestionType.multiChoice,
       color: '0X6FED2FC8',
       question: 'Did you buy clothes today, if yes what type?',
       answers: [
@@ -82,6 +88,8 @@ final quiz = Quiz(
       ],
     ),
     Question(
+      id: 'question_3',
+      type: QuestionType.intValue,
       color: '0xFF002D62',
       question: 'Estimate how much water you used today :',
       answers: [

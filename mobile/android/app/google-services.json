@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "897952876643",
+    "project_id": "esof-best-app",
+    "storage_bucket": "esof-best-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:897952876643:android:b449187cb72773fc915056",
+        "android_client_info": {
+          "package_name": "pt.up.fe.es2024.g01t01"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaa3sr4_o2AFi_RmNb4Wl-z3pyUo4jkG8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

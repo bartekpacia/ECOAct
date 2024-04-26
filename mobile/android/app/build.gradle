@@ -2,6 +2,7 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
+    id "com.google.gms.google-services"
 }
 
 def localProperties = new Properties()
@@ -23,8 +24,8 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.example.mobile"
-    compileSdk flutter.compileSdkVersion
+    namespace "pt.up.fe.es2024.g01t01"
+    compileSdk 34
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -41,9 +42,9 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.mobile"
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
+        applicationId "pt.up.fe.es2024.g01t01"
+        minSdkVersion 21
+        targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }

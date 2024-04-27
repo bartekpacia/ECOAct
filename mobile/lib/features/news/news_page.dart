@@ -25,6 +25,50 @@ class NewsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('News, Tips and More')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+              },
+              child: const Text('Ecological Tips and Facts',
+                  style: TextStyle(
+                  color: Color(0xFF0B610B),
+                  fontWeight: FontWeight.bold,
+                  fontSize:22,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size(300, 100),
+                backgroundColor: Color(0xFF7EDA64),
+                shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+            ),
+            const SizedBox(height: 25),
+            ElevatedButton(
+              onPressed: () {
+              },
+              child: const Text('News of our Planet',
+              style: TextStyle(
+                color: Color(0xFFFFFFFF),
+                fontWeight: FontWeight.bold,
+                fontSize:22,
+              ),
+            ),
+             style: ElevatedButton.styleFrom(
+             minimumSize: const Size(300, 100),
+             backgroundColor: Color(0xFF0B610B),
+            shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+              ),
+            ),
+           ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -25,7 +25,6 @@ class NewsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('News, Tips and More')),
-      body: const Center(child: Text('News and Tips Screen')),
     );
   }
 }

@@ -40,7 +40,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
             ),
             const BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
             const BottomNavigationBarItem(icon: Icon(Icons.public), label: ''),
-            const BottomNavigationBarItem(icon: Icon(Icons.public), label: ''),
+            const BottomNavigationBarItem(icon: Icon(Icons.newspaper), label: ''),
           ];
 
           assert(navigationShell.route.branches.length == 4);
@@ -87,7 +87,7 @@ class AnimatedBranchContainer extends StatelessWidget {
       children: children.mapIndexed(
         (index, navigator) {
           return AnimatedScale(
-            scale: index == currentIndex ? 1 : 1.5,
+            scale: index == currentIndex ? 1: 1.5,
             duration: const Duration(milliseconds: 400),
             child: AnimatedOpacity(
               opacity: index == currentIndex ? 1 : 0,

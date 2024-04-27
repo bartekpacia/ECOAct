@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mobile/features/calendar/calendar_page.dart';
 import 'package:mobile/features/home/home_page.dart';
 import 'package:mobile/features/news/news_page.dart';
+import 'package:mobile/features/planet_news/planet_news_page.dart';
 import 'package:mobile/features/profile/profile_page.dart';
 import 'package:mobile/features/quiz/quiz_page.dart';
 import 'package:mobile/features/score/score_page.dart';
@@ -78,6 +79,9 @@ class GoSignUpRoute extends GoRouteData {
       routes: <TypedRoute<RouteData>>[
         TypedGoRoute<GoNewsRoute>(
           path: '/news',
+          routes: <TypedRoute<RouteData>>[
+            TypedGoRoute<GoPlanetNewsRoute>(path: 'planet_news_page.dart'),
+          ],
         ),
       ],
     ),
@@ -169,5 +173,12 @@ class GoNewsRoute extends GoRouteData {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return const NewsPage();
+  }
+}
+
+class GoPlanetNewsRoute extends GoRouteData {
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return const PlanetNewsPage();
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:mobile/navigation/routes.dart';
 
 class NewsPage extends Page<void> {
   const NewsPage({super.key});
@@ -46,7 +48,9 @@ class NewsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 25),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                GoPlanetNewsRoute().push<void>(context);
+              },
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(300, 100),
                 backgroundColor: const Color(0xFF0B610B),

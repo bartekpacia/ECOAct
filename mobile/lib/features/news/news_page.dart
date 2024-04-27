@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/score_model.dart';
-import 'package:provider/provider.dart';
-
 
 class NewsPage extends Page<void> {
   const NewsPage({super.key});
@@ -13,9 +10,9 @@ class NewsPage extends Page<void> {
 class NewsRoute extends MaterialPageRoute<void> {
   NewsRoute([NewsPage? page])
       : super(
-    settings: page,
-    builder: (context) => const NewsScreen(),
-  );
+          settings: page,
+          builder: (context) => const NewsScreen(),
+        );
 }
 
 class NewsScreen extends StatelessWidget {
@@ -30,42 +27,42 @@ class NewsScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () {
-              },
-              child: const Text('Ecological Tips and Facts',
-                  style: TextStyle(
-                  color: Color(0xFF0B610B),
-                  fontWeight: FontWeight.bold,
-                  fontSize:22,
-                ),
-              ),
+              onPressed: () {},
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(300, 100),
-                backgroundColor: Color(0xFF7EDA64),
+                backgroundColor: const Color(0xFF7EDA64),
                 shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+              child: const Text(
+                'Ecological Tips and Facts',
+                style: TextStyle(
+                  color: Color(0xFF0B610B),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
                 ),
               ),
             ),
             const SizedBox(height: 25),
             ElevatedButton(
-              onPressed: () {
-              },
-              child: const Text('News of our Planet',
-              style: TextStyle(
-                color: Color(0xFFFFFFFF),
-                fontWeight: FontWeight.bold,
-                fontSize:22,
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size(300, 100),
+                backgroundColor: const Color(0xFF0B610B),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+              child: const Text(
+                'News of our Planet',
+                style: TextStyle(
+                  color: Color(0xFFFFFFFF),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                ),
               ),
             ),
-             style: ElevatedButton.styleFrom(
-             minimumSize: const Size(300, 100),
-             backgroundColor: Color(0xFF0B610B),
-            shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-              ),
-            ),
-           ),
           ],
         ),
       ),

@@ -63,6 +63,8 @@ RouteBase get $goHomeShellRouteData => StatefulShellRouteData.$route(
       factory: $GoHomeShellRouteDataExtension._fromState,
       branches: [
         StatefulShellBranchData.$branch(
+          navigatorKey: CalendarBranchData.$navigatorKey,
+          restorationScopeId: CalendarBranchData.$restorationScopeId,
           routes: [
             GoRouteData.$route(
               path: '/calendar',
@@ -186,8 +188,8 @@ extension $GoNewsRouteExtension on GoNewsRoute {
   static GoNewsRoute _fromState(GoRouterState state) => GoNewsRoute();
 
   String get location => GoRouteData.$location(
-    '/news',
-  );
+        '/news',
+      );
 
   void go(BuildContext context) => context.go(location);
 

@@ -117,12 +117,6 @@ class _SignInScreenState extends State<SignInScreen> {
                         final passwordOk =
                             _passwordTextEditingController.text == 'correct';
 
-                        print('email: ${_emailTextEditingController.text}');
-                        print(
-                          'password: ${_passwordTextEditingController.text}',
-                        );
-                        print('emailOk: $emailOk, passwordOk: $passwordOk');
-
                         if (emailOk && passwordOk) {
                           GoCalendarRoute().push<void>(context);
                         } else {

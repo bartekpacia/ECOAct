@@ -2,10 +2,10 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile/features/calendar/calendar_page.dart';
 import 'package:mobile/features/home/home_page.dart';
+import 'package:mobile/features/news/news_page.dart';
 import 'package:mobile/features/profile/profile_page.dart';
 import 'package:mobile/features/quiz/quiz_page.dart';
 import 'package:mobile/features/score/score_page.dart';
-import 'package:mobile/features/news/news_page.dart';
 import 'package:mobile/features/sign_in/sign_in_page.dart';
 import 'package:mobile/features/sign_up/sign_up_page.dart';
 
@@ -76,7 +76,7 @@ class GoSignUpRoute extends GoRouteData {
     ),
     TypedStatefulShellBranch<NewsBranchData>(
       routes: <TypedRoute<RouteData>>[
-        TypedGoRoute<GoScoreRoute>(
+        TypedGoRoute<GoNewsRoute>(
           path: '/news',
         ),
       ],
@@ -122,6 +122,7 @@ class ScoreBranchData extends StatefulShellBranchData {
   static final GlobalKey<NavigatorState> $navigatorKey = _scoreNavigatorKey;
   static const String $restorationScopeId = 'scoreRestorationScopeId';
 }
+
 class NewsBranchData extends StatefulShellBranchData {
   const NewsBranchData();
 

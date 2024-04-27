@@ -22,8 +22,30 @@ class $AssetsImagesAnswersGen {
   AssetGenImage get bicycle =>
       const AssetGenImage('assets/images/answers/bicycle.png');
 
+  /// File path: assets/images/answers/bus.png
+  AssetGenImage get bus => const AssetGenImage('assets/images/answers/bus.png');
+
   /// File path: assets/images/answers/car.png
   AssetGenImage get car => const AssetGenImage('assets/images/answers/car.png');
+
+  /// File path: assets/images/answers/clothes.png
+  AssetGenImage get clothes =>
+      const AssetGenImage('assets/images/answers/clothes.png');
+
+  /// File path: assets/images/answers/cotton.png
+  AssetGenImage get cotton =>
+      const AssetGenImage('assets/images/answers/cotton.png');
+
+  /// File path: assets/images/answers/cruise-ship.png
+  AssetGenImage get cruiseShip =>
+      const AssetGenImage('assets/images/answers/cruise-ship.png');
+
+  /// File path: assets/images/answers/dress.png
+  AssetGenImage get dress =>
+      const AssetGenImage('assets/images/answers/dress.png');
+
+  /// File path: assets/images/answers/eco.png
+  AssetGenImage get eco => const AssetGenImage('assets/images/answers/eco.png');
 
   /// File path: assets/images/answers/electric_bicycle.png
   AssetGenImage get electricBicycle =>
@@ -33,9 +55,21 @@ class $AssetsImagesAnswersGen {
   AssetGenImage get electricCar =>
       const AssetGenImage('assets/images/answers/electric_car.png');
 
+  /// File path: assets/images/answers/eletricscooter.png
+  AssetGenImage get eletricscooter =>
+      const AssetGenImage('assets/images/answers/eletricscooter.png');
+
+  /// File path: assets/images/answers/fast.png
+  AssetGenImage get fast =>
+      const AssetGenImage('assets/images/answers/fast.png');
+
   /// File path: assets/images/answers/fish.png
   AssetGenImage get fish =>
       const AssetGenImage('assets/images/answers/fish.png');
+
+  /// File path: assets/images/answers/helicopter.png
+  AssetGenImage get helicopter =>
+      const AssetGenImage('assets/images/answers/helicopter.png');
 
   /// File path: assets/images/answers/home.png
   AssetGenImage get home =>
@@ -57,13 +91,60 @@ class $AssetsImagesAnswersGen {
   AssetGenImage get motorcycle =>
       const AssetGenImage('assets/images/answers/motorcycle.png');
 
+  /// File path: assets/images/answers/no.png
+  AssetGenImage get no => const AssetGenImage('assets/images/answers/no.png');
+
   /// File path: assets/images/answers/pizza.png
   AssetGenImage get pizza =>
       const AssetGenImage('assets/images/answers/pizza.png');
 
+  /// File path: assets/images/answers/plane.png
+  AssetGenImage get plane =>
+      const AssetGenImage('assets/images/answers/plane.png');
+
+  /// File path: assets/images/answers/private_plane.png
+  AssetGenImage get privatePlane =>
+      const AssetGenImage('assets/images/answers/private_plane.png');
+
+  /// File path: assets/images/answers/recycle.png
+  AssetGenImage get recycle =>
+      const AssetGenImage('assets/images/answers/recycle.png');
+
+  /// File path: assets/images/answers/sail-boat.png
+  AssetGenImage get sailBoat =>
+      const AssetGenImage('assets/images/answers/sail-boat.png');
+
+  /// File path: assets/images/answers/scooter.png
+  AssetGenImage get scooter =>
+      const AssetGenImage('assets/images/answers/scooter.png');
+
+  /// File path: assets/images/answers/second_hand.png
+  AssetGenImage get secondHand =>
+      const AssetGenImage('assets/images/answers/second_hand.png');
+
+  /// File path: assets/images/answers/slow_fashion.png
+  AssetGenImage get slowFashion =>
+      const AssetGenImage('assets/images/answers/slow_fashion.png');
+
+  /// File path: assets/images/answers/subway.png
+  AssetGenImage get subway =>
+      const AssetGenImage('assets/images/answers/subway.png');
+
+  /// File path: assets/images/answers/swap.png
+  AssetGenImage get swap =>
+      const AssetGenImage('assets/images/answers/swap.png');
+
   /// File path: assets/images/answers/train.png
   AssetGenImage get train =>
       const AssetGenImage('assets/images/answers/train.png');
+
+  /// File path: assets/images/answers/tram.png
+  AssetGenImage get tram =>
+      const AssetGenImage('assets/images/answers/tram.png');
+
+  /// File path: assets/images/answers/vegan_fashion.png
+  AssetGenImage get veganFashion =>
+      const AssetGenImage('assets/images/answers/vegan_fashion.png');
 
   /// File path: assets/images/answers/vegetables.png
   AssetGenImage get vegetables =>
@@ -76,17 +157,38 @@ class $AssetsImagesAnswersGen {
   /// List of all assets
   List<AssetGenImage> get values => [
         bicycle,
+        bus,
         car,
+        clothes,
+        cotton,
+        cruiseShip,
+        dress,
+        eco,
         electricBicycle,
         electricCar,
+        eletricscooter,
+        fast,
         fish,
+        helicopter,
         home,
         importedProducts,
         localProducts,
         meat,
         motorcycle,
+        no,
         pizza,
+        plane,
+        privatePlane,
+        recycle,
+        sailBoat,
+        scooter,
+        secondHand,
+        slowFashion,
+        subway,
+        swap,
         train,
+        tram,
+        veganFashion,
         vegetables,
         walking
       ];

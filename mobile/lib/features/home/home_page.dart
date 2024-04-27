@@ -28,6 +28,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
         backgroundColor: context.colorScheme.secondaryContainer,
         showSelectedLabels: false,
         showUnselectedLabels: false,
+        type: BottomNavigationBarType.fixed,
         // Here, the items of BottomNavigationBar are hard coded. In a real
         // world scenario, the items would most likely be generated from the
         // branches of the shell route, which can be fetched using
@@ -40,9 +41,13 @@ class ScaffoldWithNavBar extends StatelessWidget {
             ),
             const BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
             const BottomNavigationBarItem(icon: Icon(Icons.public), label: ''),
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.newspaper),
+              label: '',
+            ),
           ];
 
-          assert(navigationShell.route.branches.length == 3);
+          assert(navigationShell.route.branches.length == 4);
 
           return items;
         }(),

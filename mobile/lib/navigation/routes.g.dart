@@ -63,6 +63,8 @@ RouteBase get $goHomeShellRouteData => StatefulShellRouteData.$route(
       factory: $GoHomeShellRouteDataExtension._fromState,
       branches: [
         StatefulShellBranchData.$branch(
+          navigatorKey: CalendarBranchData.$navigatorKey,
+          restorationScopeId: CalendarBranchData.$restorationScopeId,
           routes: [
             GoRouteData.$route(
               path: '/calendar',
@@ -93,6 +95,22 @@ RouteBase get $goHomeShellRouteData => StatefulShellRouteData.$route(
             GoRouteData.$route(
               path: '/score',
               factory: $GoScoreRouteExtension._fromState,
+            ),
+          ],
+        ),
+        StatefulShellBranchData.$branch(
+          navigatorKey: NewsBranchData.$navigatorKey,
+          restorationScopeId: NewsBranchData.$restorationScopeId,
+          routes: [
+            GoRouteData.$route(
+              path: '/news',
+              factory: $GoNewsRouteExtension._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: 'planet_news_page.dart',
+                  factory: $GoPlanetNewsRouteExtension._fromState,
+                ),
+              ],
             ),
           ],
         ),
@@ -161,6 +179,40 @@ extension $GoScoreRouteExtension on GoScoreRoute {
   String get location => GoRouteData.$location(
         '/score',
       );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $GoNewsRouteExtension on GoNewsRoute {
+  static GoNewsRoute _fromState(GoRouterState state) => GoNewsRoute();
+
+  String get location => GoRouteData.$location(
+        '/news',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $GoPlanetNewsRouteExtension on GoPlanetNewsRoute {
+  static GoPlanetNewsRoute _fromState(GoRouterState state) => GoPlanetNewsRoute();
+
+  String get location => GoRouteData.$location(
+    '/news/planet_news_page.dart',
+  );
 
   void go(BuildContext context) => context.go(location);
 

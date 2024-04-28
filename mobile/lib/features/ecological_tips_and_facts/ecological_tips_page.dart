@@ -25,14 +25,10 @@ class EcologicalTipsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Ecological Tips and Facts')),
-      body: Center(
-        child: Text('This is the ecological tips page.'),
-      ),
-    );
-      /*body: ListView(
+      body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-           EcologicalTipCard(
+          EcologicalTipCard(
             title: 'Reduce, Reuse, Recycle',
             category: 'Waste Management',
             description:
@@ -53,9 +49,9 @@ class EcologicalTipsScreen extends StatelessWidget {
             'Use renewable energy sources like solar or wind power to reduce dependence on fossil fuels and lower carbon emissions.',
           ),
           SizedBox(height: 16),
-          // Add more EcologicalTipCard widgets for additional tips and facts
         ],
-      ),*/
+      ),
+    );
   }
 }
 

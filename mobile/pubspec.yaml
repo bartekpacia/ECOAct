@@ -41,5 +41,11 @@ flutter:
     - assets/images/
     - assets/images/answers/
 
+
 flutter_gen:
   output: lib/resources
+
+
+
+
+

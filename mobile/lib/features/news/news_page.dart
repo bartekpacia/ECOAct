@@ -29,7 +29,9 @@ class NewsScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                  GoEcologicalTipsRoute().push<void>(context);
+              },
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(300, 100),
                 backgroundColor: const Color(0xFF7EDA64),

@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mobile/navigation/app_router.dart';
 import 'package:mobile/resources/theme.dart';
 import 'package:mobile/score_model.dart';
+import 'package:mobile/emissions_model.dart'; // Import CarbonFootprintModel
 import 'package:provider/provider.dart';
 
 class App extends StatefulWidget {
@@ -29,22 +30,24 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<AnswersChangeNotifier>(
-      create: (context) => AnswersChangeNotifier(),
-      child: ChangeNotifierProvider<ScoreModel>(
-        create: (context) => ScoreModel(),
-        child: MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          routerConfig: router,
-          localizationsDelegates: const [
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [Locale('en'), Locale('pt')],
-          theme: AppTheme.light(),
-          darkTheme: AppTheme.dark(),
-        ),
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => ScoreModel()),
+          ChangeNotifierProvider(create: (context) => CarbonFootprintModel()),
+          ChangeNotifierProvider(create: (context) => AnswersChangeNotifier()), // Add this line
+// Provide CarbonFootprintModel
+        ],
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        routerConfig: router,
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [Locale('en'), Locale('pt')],
+        theme: AppTheme.light(),
+        darkTheme: AppTheme.dark(),
       ),
     );
   }

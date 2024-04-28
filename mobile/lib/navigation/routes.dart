@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile/features/calendar/calendar_page.dart';
+import 'package:mobile/features/ecological_tips_and_facts/ecological_tips_page.dart';
 import 'package:mobile/features/home/home_page.dart';
 import 'package:mobile/features/news/news_page.dart';
 import 'package:mobile/features/planet_news/planet_news_page.dart';
@@ -9,6 +10,7 @@ import 'package:mobile/features/quiz/quiz_page.dart';
 import 'package:mobile/features/score/score_page.dart';
 import 'package:mobile/features/sign_in/sign_in_page.dart';
 import 'package:mobile/features/sign_up/sign_up_page.dart';
+import 'package:mobile/navigation/navigation.dart';
 
 part 'routes.g.dart';
 
@@ -81,6 +83,7 @@ class GoSignUpRoute extends GoRouteData {
           path: '/news',
           routes: <TypedRoute<RouteData>>[
             TypedGoRoute<GoPlanetNewsRoute>(path: 'planet_news_page.dart'),
+            TypedGoRoute<GoEcologicalTipsRoute>(path: 'ecological_tips_page.dart'),
           ],
         ),
       ],
@@ -182,3 +185,12 @@ class GoPlanetNewsRoute extends GoRouteData {
     return const PlanetNewsPage();
   }
 }
+
+class GoEcologicalTipsRoute extends GoRouteData {
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return const EcologicalTipsPage();
+  }
+}
+
+

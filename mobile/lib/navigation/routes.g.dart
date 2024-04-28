@@ -110,6 +110,10 @@ RouteBase get $goHomeShellRouteData => StatefulShellRouteData.$route(
                   path: 'planet_news_page.dart',
                   factory: $GoPlanetNewsRouteExtension._fromState,
                 ),
+                GoRouteData.$route(
+                    path: 'ecological_tips_page.dart',
+                    factory: $GoEcologicalTipsRouteExtension._fromState,
+                ),
               ],
             ),
           ],
@@ -212,6 +216,23 @@ extension $GoPlanetNewsRouteExtension on GoPlanetNewsRoute {
 
   String get location => GoRouteData.$location(
     '/news/planet_news_page.dart',
+  );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $GoEcologicalTipsRouteExtension on GoEcologicalTipsRoute {
+  static GoEcologicalTipsRoute _fromState(GoRouterState state) => GoEcologicalTipsRoute();
+
+  String get location => GoRouteData.$location(
+    '/news/ecological_tips_page.dart',
   );
 
   void go(BuildContext context) => context.go(location);

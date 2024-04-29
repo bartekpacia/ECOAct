@@ -35,3 +35,8 @@ jobs:
 
       - name: dart format
         run: dart format --set-exit-if-changed .
+
+      - name: Check if build_runner-generated code is up to date
+        run: |
+          dart run build_runner build --delete-conflicting-outputs
+          git diff --exit-code test

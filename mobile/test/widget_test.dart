@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile/app.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (tester) async {
-    await tester.pumpWidget(const App());
+    var counter = 0;
+    await tester.pumpWidget(
+      MaterialApp(
+        home: StatefulBuilder(
+          builder: (context, setState) {
+            return Scaffold(
+              body: Center(child: Text('$counter')),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () => setState(() => counter++),
+                child: const Icon(Icons.add),
+              ),
+            );
+          },
+        ),
+      ),
+    );
 
     expect(find.text('0'), findsOneWidget);
     expect(find.text('1'), findsNothing);

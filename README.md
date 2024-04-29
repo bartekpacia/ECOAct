@@ -52,7 +52,7 @@ The user stories are created as GitHub items in the Project board.
 ## Sprint Retrospective
 
 ### Sprint 2
-In this print, 
+In this sprint we added more work then the previous sprints, and even though we weren't able to complete everything as we would like to we still got more work done. Putting more user stories in our sprint backlog made us work more and faster so now we can have a better idea of the ideal amount 
 
 
 

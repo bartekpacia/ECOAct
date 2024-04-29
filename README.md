@@ -11,6 +11,7 @@ You can find here details about the ECOAct, from a high-level vision to low-leve
   - [Domain model](#Domain-model)
 - [Architecture and Design](#Architecture-And-Design)
   - [Vertical prototype](#Vertical-Prototype)
+- [Sprint Retrospective](#Sprint-Retrospective)
 
 Contributions are expected to be made exclusively by the initial team, but we may open them to the community, after the course, in all areas and topics: requirements, technologies, development, experimentation, testing, etc.
 
@@ -45,5 +46,14 @@ The user stories are created as GitHub items in the Project board.
 ![](images/domain_modeling.png)
 
 ### Package UML
-
 ![](images/package_uml.png)
+
+
+## Sprint Retrospective
+
+### Sprint 2
+In this print, 
+
+
+
+

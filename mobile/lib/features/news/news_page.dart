@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:mobile/navigation/routes.dart';
 
 class NewsPage extends Page<void> {

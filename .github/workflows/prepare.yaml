@@ -8,6 +8,10 @@ jobs:
   main:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: mobile
+
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
@@ -16,7 +20,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
-          flutter-version-file: pubspec.yaml
+          flutter-version-file: mobile/pubspec.yaml
 
       - name: Download pub dependencies
         run: flutter pub get
@@ -31,3 +35,8 @@ jobs:
 
       - name: dart format
         run: dart format --set-exit-if-changed .
+
+      - name: Check if build_runner-generated code is up to date
+        run: |
+          dart run build_runner build --delete-conflicting-outputs
+          git diff --exit-code test

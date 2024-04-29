@@ -208,11 +208,12 @@ extension $GoNewsRouteExtension on GoNewsRoute {
 }
 
 extension $GoPlanetNewsRouteExtension on GoPlanetNewsRoute {
-  static GoPlanetNewsRoute _fromState(GoRouterState state) => GoPlanetNewsRoute();
+  static GoPlanetNewsRoute _fromState(GoRouterState state) =>
+      GoPlanetNewsRoute();
 
   String get location => GoRouteData.$location(
-    '/news/planet_news_page.dart',
-  );
+        '/news/planet_news_page.dart',
+      );
 
   void go(BuildContext context) => context.go(location);
 

@@ -1,4 +1,4 @@
-appId: com.example.mobile
+appId: pt.up.fe.es2024.g01t01
 name: Sign in test (good credentials)
 ---
 - launchApp:

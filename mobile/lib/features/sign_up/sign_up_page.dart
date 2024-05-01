@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/auth_model.dart';
 import 'package:mobile/resources/theme.dart';
 import 'package:mobile/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 class SignUpPage extends Page<void> {
   const SignUpPage({super.key});
@@ -17,8 +19,77 @@ class SignUpRoute extends MaterialPageRoute<void> {
         );
 }
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
+
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  bool passwordsDoNotMatch = false;
+  bool hidePasswords = true;
+  String? nameError;
+  String? emailError;
+  late final TextEditingController emailTextController;
+  late final TextEditingController nameTextController;
+  late final TextEditingController passwordTextController;
+  late final TextEditingController repeatPasswordTextController;
+
+  @override
+  void initState() {
+    super.initState();
+    emailTextController = TextEditingController();
+    nameTextController = TextEditingController();
+    passwordTextController = TextEditingController();
+    repeatPasswordTextController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    emailTextController.dispose();
+    nameTextController.dispose();
+    passwordTextController.dispose();
+    repeatPasswordTextController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _onSignUpPressed(BuildContext context) async {
+    final authChangeNotifier = context.read<AuthChangeNotifier>();
+    final email = emailTextController.text;
+    final name = nameTextController.text;
+    final password = passwordTextController.text;
+    final repeatPassword = repeatPasswordTextController.text;
+
+    if (password != repeatPassword) {
+      setState(() => passwordsDoNotMatch = true);
+      return;
+    } else {
+      setState(() => passwordsDoNotMatch = false);
+    }
+
+    if (name.length < 3) {
+      setState(() => nameError = 'Name too short');
+      return;
+    } else {
+      setState(() => nameError = null);
+    }
+
+    final result = await authChangeNotifier.signUp(
+      email: email,
+      displayName: name,
+      password: password,
+    );
+
+    if (!result && context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('An error occurred. Please try again.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,17 +142,34 @@ class SignUpScreen extends StatelessWidget {
                         style: context.textTheme.titleLarge,
                       ),
                       const SizedBox(height: 14),
-                      const EcoTextField(hintText: 'Email'),
+                      EcoTextField(
+                        controller: emailTextController,
+                        hintText: 'Email',
+                        errorText: emailError,
+                      ),
                       const SizedBox(height: 14),
-                      const EcoTextField(hintText: 'Name'),
+                      EcoTextField(
+                        controller: nameTextController,
+                        hintText: 'Name',
+                        errorText: nameError,
+                      ),
                       const SizedBox(height: 14),
-                      const EcoTextField(hintText: 'Username'),
+                      EcoTextField(
+                        controller: passwordTextController,
+                        password: hidePasswords,
+                        hintText: 'Password',
+                        errorText: !passwordsDoNotMatch
+                            ? null
+                            : 'Passwords do not match',
+                      ),
                       const SizedBox(height: 14),
-                      const EcoTextField(password: true, hintText: 'Password'),
-                      const SizedBox(height: 14),
-                      const EcoTextField(
-                        password: true,
+                      EcoTextField(
+                        controller: repeatPasswordTextController,
+                        password: hidePasswords,
                         hintText: 'Repeat password',
+                        errorText: !passwordsDoNotMatch
+                            ? null
+                            : 'Passwords do not match',
                       ),
                       const SizedBox(height: 14),
                       const SizedBox(height: 6),
@@ -100,7 +188,7 @@ class SignUpScreen extends StatelessWidget {
                   Center(
                     child: EcoButton(
                       text: 'Sign up',
-                      onPressed: () {},
+                      onPressed: () => _onSignUpPressed(context),
                     ),
                   ),
                   const SizedBox(height: 18),

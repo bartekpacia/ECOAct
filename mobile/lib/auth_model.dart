@@ -15,17 +15,30 @@ class AuthChangeNotifier extends ChangeNotifier {
 
   User? get user => _auth.currentUser;
 
-  Future<void> signUp({
+  /// Returns true if the sign up was successful, false otherwise.
+  Future<bool> signUp({
     required String email,
+    required String displayName,
     required String password,
   }) async {
-    await _auth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      await _auth.currentUser!.updateDisplayName(displayName);
+    } catch (err) {
+      if (err is FirebaseAuthException) {
+        return false;
+      }
+
+      rethrow;
+    }
+
+    return true;
   }
 
-  /// Returns true if the sign-in was successful, false otherwise.
+  /// Returns true if the sign in was successful, false otherwise.
   Future<bool> signIn({
     required String email,
     required String password,

@@ -29,7 +29,7 @@ class NewsScreen extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                  GoEcologicalTipsRoute().push<void>(context);
+                GoEcologicalTipsRoute().push<void>(context);
               },
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(300, 100),

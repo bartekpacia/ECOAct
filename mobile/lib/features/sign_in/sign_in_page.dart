@@ -1,8 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/auth_model.dart';
 import 'package:mobile/navigation/routes.dart';
 import 'package:mobile/resources/theme.dart';
 import 'package:mobile/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 class SignInPage extends Page<void> {
   const SignInPage({super.key});
@@ -39,6 +41,8 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authChangeNotifier = context.read<AuthChangeNotifier>();
+
     return Scaffold(
       body: Container(
         color: AppColors.primary,
@@ -111,15 +115,13 @@ class _SignInScreenState extends State<SignInScreen> {
                   Center(
                     child: EcoButton(
                       text: 'Sign in',
-                      onPressed: () {
-                        final emailOk = _emailTextEditingController.text ==
-                            'example@example.com';
-                        final passwordOk =
-                            _passwordTextEditingController.text == 'correct';
+                      onPressed: () async {
+                        final result = await authChangeNotifier.signIn(
+                          email: _emailTextEditingController.text,
+                          password: _passwordTextEditingController.text,
+                        );
 
-                        if (emailOk && passwordOk) {
-                          GoCalendarRoute().push<void>(context);
-                        } else {
+                        if (!result && context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('Invalid email or password'),
@@ -127,6 +129,8 @@ class _SignInScreenState extends State<SignInScreen> {
                             ),
                           );
                         }
+
+                        return;
                       },
                     ),
                   ),

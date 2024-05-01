@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/auth_model.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends Page<void> {
   const ProfilePage({super.key});
@@ -22,7 +24,20 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('ProfileScreen')),
-      body: const Center(child: Text('ProfileScreen')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('ProfileScreen'),
+            TextButton(
+              onPressed: () async {
+                await context.read<AuthChangeNotifier>().signOut();
+              },
+              child: const Text('Sign out'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

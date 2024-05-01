@@ -15,6 +15,7 @@ import 'package:mobile/navigation/navigation.dart';
 part 'routes.g.dart';
 
 const signInRouteLocation = '/sign_in';
+const calendarRouteLocation = '/calendar';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 final shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -56,7 +57,7 @@ class GoSignUpRoute extends GoRouteData {
     TypedStatefulShellBranch<CalendarBranchData>(
       routes: <TypedRoute<RouteData>>[
         TypedGoRoute<GoCalendarRoute>(
-          path: '/calendar',
+          path: calendarRouteLocation,
           routes: <TypedRoute<RouteData>>[
             TypedGoRoute<GoQuizRoute>(path: 'quiz'),
           ],

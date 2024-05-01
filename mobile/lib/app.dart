@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:mobile/auth_model.dart';
 import 'package:mobile/emissions_model.dart'; // Import CarbonFootprintModel
 import 'package:mobile/navigation/app_router.dart';
 import 'package:mobile/resources/theme.dart';
@@ -19,7 +20,10 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-    router = AppRouter();
+
+    router = AppRouter(
+      authChangeNotifier: context.read<AuthChangeNotifier>(),
+    );
   }
 
   @override

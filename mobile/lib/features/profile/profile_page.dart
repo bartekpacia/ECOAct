@@ -22,13 +22,16 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authChangeNotifier = context.read<AuthChangeNotifier>();
+    final user = authChangeNotifier.user!;
+
     return Scaffold(
       appBar: AppBar(title: const Text('ProfileScreen')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('ProfileScreen'),
+            Text('👋 Hello, ${user.displayName} @ ${user.email}'),
             TextButton(
               onPressed: () async {
                 await context.read<AuthChangeNotifier>().signOut();

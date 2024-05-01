@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:collection/collection.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:mobile/navigation/routes.dart';
 
 class EcologicalTipsPage extends Page<void> {
   const EcologicalTipsPage({super.key});
@@ -13,9 +10,9 @@ class EcologicalTipsPage extends Page<void> {
 class EcologicalTipsRoute extends MaterialPageRoute<void> {
   EcologicalTipsRoute([EcologicalTipsPage? page])
       : super(
-    settings: page,
-    builder: (context) => const EcologicalTipsScreen(),
-  );
+          settings: page,
+          builder: (context) => const EcologicalTipsScreen(),
+        );
 }
 
 class EcologicalTipsScreen extends StatelessWidget {
@@ -27,26 +24,26 @@ class EcologicalTipsScreen extends StatelessWidget {
       appBar: AppBar(title: const Text('Ecological Tips and Facts')),
       body: ListView(
         padding: const EdgeInsets.all(16),
-        children: [
+        children: const [
           EcologicalTipCard(
             title: 'Reduce, Reuse, Recycle',
             category: 'Waste Management',
             description:
-            'Reduce your waste production, reuse items when possible, and recycle materials to minimize environmental impact.',
+                'Reduce your waste production, reuse items when possible, and recycle materials to minimize environmental impact.',
           ),
           SizedBox(height: 16),
           EcologicalTipCard(
             title: 'Conserve Water',
             category: 'Water Conservation',
             description:
-            'Turn off taps while brushing teeth, fix leaks, and install water-efficient appliances to conserve water resources.',
+                'Turn off taps while brushing teeth, fix leaks, and install water-efficient appliances to conserve water resources.',
           ),
           SizedBox(height: 16),
           EcologicalTipCard(
             title: 'Switch to Renewable Energy',
             category: 'Energy Conservation',
             description:
-            'Use renewable energy sources like solar or wind power to reduce dependence on fossil fuels and lower carbon emissions.',
+                'Use renewable energy sources like solar or wind power to reduce dependence on fossil fuels and lower carbon emissions.',
           ),
           SizedBox(height: 16),
         ],
@@ -56,15 +53,15 @@ class EcologicalTipsScreen extends StatelessWidget {
 }
 
 class EcologicalTipCard extends StatelessWidget {
-  final String title;
-  final String category;
-  final String description;
-
   const EcologicalTipCard({
+    super.key,
     required this.title,
     required this.category,
     required this.description,
   });
+  final String title;
+  final String category;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
@@ -80,22 +77,22 @@ class EcologicalTipCard extends StatelessWidget {
           children: [
             Text(
               title,
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               'Category: $category',
               style: TextStyle(
                 color: Colors.grey[600],
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               description,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
               ),
             ),

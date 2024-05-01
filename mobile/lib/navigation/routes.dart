@@ -83,7 +83,9 @@ class GoSignUpRoute extends GoRouteData {
           path: '/news',
           routes: <TypedRoute<RouteData>>[
             TypedGoRoute<GoPlanetNewsRoute>(path: 'planet_news_page.dart'),
-            TypedGoRoute<GoEcologicalTipsRoute>(path: 'ecological_tips_page.dart'),
+            TypedGoRoute<GoEcologicalTipsRoute>(
+              path: 'ecological_tips_page.dart',
+            ),
           ],
         ),
       ],
@@ -192,5 +194,3 @@ class GoEcologicalTipsRoute extends GoRouteData {
     return const EcologicalTipsPage();
   }
 }
-
-

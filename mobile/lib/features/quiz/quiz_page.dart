@@ -1,9 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/emissions_model.dart';
 import 'package:mobile/features/quiz/quiz_models.dart';
 import 'package:mobile/resources/theme.dart';
 import 'package:mobile/score_model.dart';
-import 'package:mobile/emissions_model.dart';
 import 'package:provider/provider.dart';
 
 class QuizPage extends Page<void> {
@@ -108,14 +108,18 @@ class AnswersList extends StatelessWidget {
                           onAnswerUnselected(answer.answer);
                           Provider.of<ScoreModel>(context, listen: false)
                               .decrement(answer.points);
-                          Provider.of<CarbonFootprintModel>(context, listen: false)
-                              .decrementCarbonFootprint(answer.emissions);
+                          Provider.of<CarbonFootprintModel>(
+                            context,
+                            listen: false,
+                          ).decrementCarbonFootprint(answer.emissions);
                         } else {
                           onAnswerSelected(answer.answer);
                           Provider.of<ScoreModel>(context, listen: false)
                               .increment(answer.points);
-                          Provider.of<CarbonFootprintModel>(context, listen: false)
-                              .incrementCarbonFootprint(answer.emissions);
+                          Provider.of<CarbonFootprintModel>(
+                            context,
+                            listen: false,
+                          ).incrementCarbonFootprint(answer.emissions);
                         }
                       },
                       child: SingleAnswerTile(

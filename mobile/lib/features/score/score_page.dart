@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/score_model.dart'; // Assuming you have a `ScoreModel` class
 import 'package:mobile/emissions_model.dart';
+import 'package:mobile/score_model.dart'; // Assuming you have a `ScoreModel` class
 import 'package:provider/provider.dart';
 
 class ScorePage extends Page<void> {
@@ -13,9 +13,9 @@ class ScorePage extends Page<void> {
 class ScoreRoute extends MaterialPageRoute<void> {
   ScoreRoute([ScorePage? page])
       : super(
-    settings: page,
-    builder: (context) => const ScoreScreen(),
-  );
+          settings: page,
+          builder: (context) => const ScoreScreen(),
+        );
 }
 
 class ScoreScreen extends StatelessWidget {
@@ -31,12 +31,18 @@ class ScoreScreen extends StatelessWidget {
           children: [
             Consumer<CarbonFootprintModel>(
               builder: (context, model, _) {
-                int userCarbonFootprint = model.carbonFootprint;
-                int averageCarbonFootprint = 100; // example
+                final userCarbonFootprint = model.carbonFootprint;
+                const averageCarbonFootprint = 100; // example
 
-                double percentage = (((averageCarbonFootprint - userCarbonFootprint).abs() / averageCarbonFootprint) * 100);
+                final percentage =
+                    ((averageCarbonFootprint - userCarbonFootprint).abs() /
+                            averageCarbonFootprint) *
+                        100;
 
-                Color progressColor = userCarbonFootprint > averageCarbonFootprint ? Colors.red : Colors.blue;
+                final Color progressColor =
+                    userCarbonFootprint > averageCarbonFootprint
+                        ? Colors.red
+                        : Colors.blue;
 
                 return Stack(
                   alignment: Alignment.center,
@@ -50,10 +56,12 @@ class ScoreScreen extends StatelessWidget {
                         color: Colors.blue.shade100,
                       ),
                       child: CircularProgressIndicator(
-                        value: percentage / 100, // Adjust based on your scoring system
+                        value: percentage /
+                            100, // Adjust based on your scoring system
                         strokeWidth: 12,
                         backgroundColor: Colors.grey,
-                        valueColor: AlwaysStoppedAnimation<Color>(progressColor),
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(progressColor),
                       ),
                     ),
                     const Icon(
@@ -68,22 +76,30 @@ class ScoreScreen extends StatelessWidget {
             const SizedBox(height: 20),
             Consumer<CarbonFootprintModel>(
               builder: (context, model, _) {
-                int userCarbonFootprint = model.carbonFootprint;
-                int averageCarbonFootprint = 100; // example
+                final userCarbonFootprint = model.carbonFootprint;
+                const averageCarbonFootprint = 100; // example
 
-                double percentage = (((averageCarbonFootprint - userCarbonFootprint).abs() / averageCarbonFootprint) * 100);
+                final percentage =
+                    ((averageCarbonFootprint - userCarbonFootprint).abs() /
+                            averageCarbonFootprint) *
+                        100;
 
                 String message;
 
                 if (userCarbonFootprint > averageCarbonFootprint) {
-                  message = "At the moment, your carbon footprint is ${percentage.toInt()}% above average.\n" + "Time to improve it!";
+                  message =
+                      'At the moment, your carbon footprint is ${percentage.toInt()}% above average.\n'
+                      'Time to improve it!';
                 } else {
-                  message = "At the moment, your carbon footprint is ${percentage.toInt()}% below average.\n" + "Good job, keep going :)";
+                  message =
+                      'At the moment, your carbon footprint is ${percentage.toInt()}% below average.\n'
+                      'Good job, keep going :)';
                 }
-                print(message); // Output the message
 
                 return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20), // Add vertical padding
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 20,
+                  ), // Add vertical padding
                   child: Text(
                     message,
                     textAlign: TextAlign.center, // Center the text
@@ -100,7 +116,7 @@ class ScoreScreen extends StatelessWidget {
             Consumer<ScoreModel>(
               builder: (context, model, _) {
                 return Text(
-                  "Current score: ${model.score.toString()}",
+                  'Current score: ${model.score}',
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -116,7 +132,3 @@ class ScoreScreen extends StatelessWidget {
     );
   }
 }
-
-
-
-

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:mobile/extensions.dart';
 import 'package:mobile/navigation/routes.dart';
+import 'package:mobile/state/quiz_change_notifier.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarPage extends Page<void> {
@@ -23,6 +26,8 @@ class CalendarScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final answersChangeNotifier = Provider.of<QuizChangeNotifier>(context);
+
     final selectedDay = useState<DateTime?>(null);
     final focusedDay = useState<DateTime?>(null);
 
@@ -35,7 +40,7 @@ class CalendarScreen extends HookWidget {
               onFormatChanged: (_) {},
               firstDay: DateTime.utc(2005, 4, 2),
               lastDay: DateTime.utc(2030, 3, 14),
-              focusedDay: DateTime(2024, 3),
+              focusedDay: DateTime.now(),
               availableCalendarFormats: const {CalendarFormat.month: 'Month'},
               selectedDayPredicate: (selectedDayCandidate) {
                 return false;
@@ -44,11 +49,33 @@ class CalendarScreen extends HookWidget {
                 selectedDay.value = newSelectedDay;
                 focusedDay.value = newFocusedDay;
 
-                GoQuizRoute().push<void>(context);
+                if (newSelectedDay.isAfter(DateTime.now())) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('This quiz is in the future'),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+
+                  return;
+                }
+
+                GoQuizRoute(
+                  dateId: newSelectedDay.toDateId(),
+                ).push<void>(context);
               },
               calendarBuilders: CalendarBuilders(
                 outsideBuilder: (context, day, focusedDay) {
-                  return Center(
+                  final selected = answersChangeNotifier.answers.any((answer) {
+                    return day.toDateId() == answer.date.toDateId();
+                  });
+
+                  return Container(
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: selected ? Colors.green.shade700 : null,
+                    ),
                     child: Text(
                       day.day.toString(),
                       style: const TextStyle(color: Colors.grey),
@@ -56,7 +83,18 @@ class CalendarScreen extends HookWidget {
                   );
                 },
                 defaultBuilder: (context, day, focusedDay) {
-                  return Center(child: Text(day.day.toString()));
+                  final selected = answersChangeNotifier.answers.any((answer) {
+                    return day.toDateId() == answer.date.toDateId();
+                  });
+
+                  return Container(
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: selected ? Colors.green.shade700 : null,
+                    ),
+                    child: Text(day.day.toString()),
+                  );
                 },
               ),
             ),

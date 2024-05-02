@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/app.dart';
-import 'package:mobile/auth_model.dart';
-import 'package:mobile/emissions_model.dart';
-import 'package:mobile/score_model.dart';
+import 'package:mobile/state/auth_change_notifier.dart';
+import 'package:mobile/state/emissions_model.dart';
+import 'package:mobile/state/quiz_change_notifier.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -29,7 +29,7 @@ class GlobalProviders extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => AuthChangeNotifier()),
         ChangeNotifierProvider(create: (context) => ScoreModel()),
         ChangeNotifierProvider(create: (context) => CarbonFootprintModel()),
-        ChangeNotifierProvider(create: (context) => AnswersChangeNotifier()),
+        ChangeNotifierProvider(create: (context) => QuizChangeNotifier()),
       ],
       child: child,
     );

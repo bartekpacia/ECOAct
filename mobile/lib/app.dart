@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:mobile/auth_model.dart';
-import 'package:mobile/emissions_model.dart'; // Import CarbonFootprintModel
 import 'package:mobile/navigation/app_router.dart';
 import 'package:mobile/resources/theme.dart';
-import 'package:mobile/score_model.dart';
+import 'package:mobile/state/auth_change_notifier.dart';
+import 'package:mobile/state/emissions_model.dart'; // Import CarbonFootprintModel
+import 'package:mobile/state/quiz_change_notifier.dart';
 import 'package:provider/provider.dart';
 
 class App extends StatefulWidget {
@@ -39,7 +39,7 @@ class _AppState extends State<App> {
         ChangeNotifierProvider(create: (context) => ScoreModel()),
         ChangeNotifierProvider(create: (context) => CarbonFootprintModel()),
         ChangeNotifierProvider(
-          create: (context) => AnswersChangeNotifier(),
+          create: (context) => QuizChangeNotifier(),
         ),
       ],
       child: MaterialApp.router(

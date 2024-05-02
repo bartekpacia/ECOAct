@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/emissions_model.dart';
-import 'package:mobile/score_model.dart'; // Assuming you have a `ScoreModel` class
+import 'package:mobile/state/emissions_model.dart';
+import 'package:mobile/state/quiz_change_notifier.dart'; // Assuming you have a `ScoreModel` class
 import 'package:provider/provider.dart';
 
 class ScorePage extends Page<void> {

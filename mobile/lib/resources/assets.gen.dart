@@ -13,6 +13,19 @@ class $AssetsImagesGen {
   const $AssetsImagesGen();
 
   $AssetsImagesAnswersGen get answers => const $AssetsImagesAnswersGen();
+
+  /// File path: assets/images/earth.png
+  AssetGenImage get earth => const AssetGenImage('assets/images/earth.png');
+
+  /// File path: assets/images/factories_img.jpg
+  AssetGenImage get factoriesImg =>
+      const AssetGenImage('assets/images/factories_img.jpg');
+
+  /// File path: assets/images/river.jpeg
+  AssetGenImage get river => const AssetGenImage('assets/images/river.jpeg');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [earth, factoriesImg, river];
 }
 
 class $AssetsImagesAnswersGen {

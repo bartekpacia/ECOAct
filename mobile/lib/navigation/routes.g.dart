@@ -71,7 +71,7 @@ RouteBase get $goHomeShellRouteData => StatefulShellRouteData.$route(
               factory: $GoCalendarRouteExtension._fromState,
               routes: [
                 GoRouteData.$route(
-                  path: 'quiz',
+                  path: 'quiz/:dateId',
                   factory: $GoQuizRouteExtension._fromState,
                 ),
               ],
@@ -144,10 +144,12 @@ extension $GoCalendarRouteExtension on GoCalendarRoute {
 }
 
 extension $GoQuizRouteExtension on GoQuizRoute {
-  static GoQuizRoute _fromState(GoRouterState state) => GoQuizRoute();
+  static GoQuizRoute _fromState(GoRouterState state) => GoQuizRoute(
+        dateId: state.pathParameters['dateId']!,
+      );
 
   String get location => GoRouteData.$location(
-        '/calendar/quiz',
+        '/calendar/quiz/${Uri.encodeComponent(dateId)}',
       );
 
   void go(BuildContext context) => context.go(location);

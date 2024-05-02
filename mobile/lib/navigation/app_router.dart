@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mobile/auth_model.dart';
 import 'package:mobile/navigation/routes.dart';
+import 'package:mobile/state/auth_change_notifier.dart';
 
 export 'package:go_router/go_router.dart';
 

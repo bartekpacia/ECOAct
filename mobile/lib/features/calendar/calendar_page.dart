@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:mobile/extensions.dart';
 import 'package:mobile/navigation/routes.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -35,7 +36,7 @@ class CalendarScreen extends HookWidget {
               onFormatChanged: (_) {},
               firstDay: DateTime.utc(2005, 4, 2),
               lastDay: DateTime.utc(2030, 3, 14),
-              focusedDay: DateTime(2024, 3),
+              focusedDay: DateTime.now(),
               availableCalendarFormats: const {CalendarFormat.month: 'Month'},
               selectedDayPredicate: (selectedDayCandidate) {
                 return false;
@@ -44,7 +45,9 @@ class CalendarScreen extends HookWidget {
                 selectedDay.value = newSelectedDay;
                 focusedDay.value = newFocusedDay;
 
-                GoQuizRoute().push<void>(context);
+                GoQuizRoute(
+                  dateId: newSelectedDay.toDateId(),
+                ).push<void>(context);
               },
               calendarBuilders: CalendarBuilders(
                 outsideBuilder: (context, day, focusedDay) {

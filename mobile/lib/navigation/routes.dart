@@ -59,7 +59,7 @@ class GoSignUpRoute extends GoRouteData {
         TypedGoRoute<GoCalendarRoute>(
           path: calendarRouteLocation,
           routes: <TypedRoute<RouteData>>[
-            TypedGoRoute<GoQuizRoute>(path: 'quiz'),
+            TypedGoRoute<GoQuizRoute>(path: 'quiz/:dateId'),
           ],
         ),
       ],
@@ -155,9 +155,13 @@ class GoCalendarRoute extends GoRouteData {
 }
 
 class GoQuizRoute extends GoRouteData {
+  const GoQuizRoute({required this.dateId});
+
+  final String dateId;
+
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return const QuizPage();
+    return QuizPage(dateId: dateId);
   }
 }
 

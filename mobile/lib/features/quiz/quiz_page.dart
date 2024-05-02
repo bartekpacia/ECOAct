@@ -7,22 +7,28 @@ import 'package:mobile/score_model.dart';
 import 'package:provider/provider.dart';
 
 class QuizPage extends Page<void> {
-  const QuizPage({super.key});
+  const QuizPage({super.key, required this.dateId});
+
+  final String dateId;
 
   @override
-  Route<void> createRoute(BuildContext context) => QuizRoute(this);
+  Route<void> createRoute(BuildContext context) {
+    return QuizRoute(page: this, dateId: dateId);
+  }
 }
 
 class QuizRoute extends MaterialPageRoute<void> {
-  QuizRoute([QuizPage? page])
+  QuizRoute({QuizPage? page, required String dateId})
       : super(
           settings: page,
-          builder: (context) => const QuizScreen(),
+          builder: (context) => QuizScreen(dateId: dateId),
         );
 }
 
 class QuizScreen extends StatelessWidget {
-  const QuizScreen({super.key});
+  const QuizScreen({super.key, required this.dateId});
+
+  final String dateId;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +49,7 @@ class QuizScreen extends StatelessWidget {
                       .firstWhereOrNull(
                         (elem) => elem.questionId == 'question_$index',
                       )
-                      ?.answers ??
+                      ?.selectedAnswers ??
                   [],
               onAnswerSelected: (answer) {
                 answersChangeNotifier.selectAnswer(

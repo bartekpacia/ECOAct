@@ -1,17 +1,30 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 
 class AnswersToQuestion {
-  AnswersToQuestion({required this.questionId, required this.answers});
+  AnswersToQuestion({
+    required this.date,
+    required this.questionId,
+    required this.selectedAnswers,
+    required this.userId,
+  });
 
+  final DateTime date;
   final String questionId;
-  final List<String> answers;
+  final List<String> selectedAnswers;
+  final String userId;
 }
 
 class AnswersChangeNotifier extends ChangeNotifier {
-  AnswersChangeNotifier() : _firestore = FirebaseFirestore.instance {
+  AnswersChangeNotifier()
+      : _firestore = FirebaseFirestore.instance,
+        _auth = FirebaseAuth.instance {
+    assert(_auth.currentUser != null, 'user must be authenticated');
+    user = _auth.currentUser!;
+
     _subscription = _getAnswers().listen((answers) {
       _answers = answers;
       notifyListeners();
@@ -19,6 +32,8 @@ class AnswersChangeNotifier extends ChangeNotifier {
   }
 
   final FirebaseFirestore _firestore;
+  final FirebaseAuth _auth;
+  late User user;
   List<AnswersToQuestion> _answers = [];
   List<AnswersToQuestion> get answers => _answers;
   StreamSubscription<void>? _subscription;
@@ -27,9 +42,15 @@ class AnswersChangeNotifier extends ChangeNotifier {
     required String questionId,
     required String answer,
   }) async {
-    await _firestore.collection('answers').doc(questionId).update({
-      'selectedAnswers': FieldValue.arrayUnion([answer]),
-    });
+    await _firestore.collection('answers').doc().set(
+      {
+        'date': DateTime.now(),
+        'questionId': questionId,
+        'selectedAnswers': FieldValue.arrayUnion([answer]),
+        'userId': user.uid,
+      },
+      SetOptions(merge: true),
+    );
   }
 
   Future<void> unselectAnswer({
@@ -47,8 +68,10 @@ class AnswersChangeNotifier extends ChangeNotifier {
       final answers = snapshot.docs.map((doc) {
         final data = doc.data();
         return AnswersToQuestion(
+          date: (data['date'] as Timestamp).toDate(),
+          userId: data['userId'] as String,
           questionId: doc.id,
-          answers: (data['selectedAnswers'] as List<dynamic>)
+          selectedAnswers: (data['selectedAnswers'] as List<dynamic>)
               .map((e) => e.toString())
               .toList(),
         );

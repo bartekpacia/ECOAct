@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/auth_model.dart';
 import 'package:mobile/resources/theme.dart';
+import 'package:mobile/state/auth_change_notifier.dart';
 import 'package:mobile/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 

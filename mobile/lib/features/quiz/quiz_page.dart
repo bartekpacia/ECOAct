@@ -1,9 +1,10 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile/emissions_model.dart';
+import 'package:mobile/extensions.dart';
 import 'package:mobile/features/quiz/quiz_models.dart';
 import 'package:mobile/resources/theme.dart';
-import 'package:mobile/score_model.dart';
+import 'package:mobile/state/emissions_model.dart';
+import 'package:mobile/state/quiz_change_notifier.dart';
 import 'package:provider/provider.dart';
 
 class QuizPage extends Page<void> {
@@ -32,34 +33,39 @@ class QuizScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final answersChangeNotifier = Provider.of<AnswersChangeNotifier>(context);
+    final answersChangeNotifier = Provider.of<QuizChangeNotifier>(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('QuizScreen')),
+      appBar: AppBar(title: Text('Quiz for $dateId')),
       body: ListView(
         children: [
-          ...quiz.questions.mapIndexed((index, question) {
-            if (question.type == QuestionType.intValue) {
-              return WaterConsumptionWidget(question: question);
+          ...quiz.questions.mapIndexed((index, questionId) {
+            if (questionId.type == QuestionType.intValue) {
+              return WaterConsumptionWidget(question: questionId);
             }
 
+            final selectedAnswers = answersChangeNotifier.answers
+                    .where((element) => element.date.toDateId() == dateId)
+                    .firstWhereOrNull(
+                      (answerObj) => answerObj.questionId == questionId.id,
+                    )
+                    ?.selectedAnswers ??
+                [];
+
             return AnswersList(
-              question: question,
-              selectedAnswers: answersChangeNotifier.answers
-                      .firstWhereOrNull(
-                        (elem) => elem.questionId == 'question_$index',
-                      )
-                      ?.selectedAnswers ??
-                  [],
+              question: questionId,
+              selectedAnswers: selectedAnswers,
               onAnswerSelected: (answer) {
                 answersChangeNotifier.selectAnswer(
-                  questionId: question.id,
+                  dateId: dateId,
+                  questionId: questionId.id,
                   answer: answer,
                 );
               },
               onAnswerUnselected: (answer) {
                 answersChangeNotifier.unselectAnswer(
-                  questionId: question.id,
+                  dateId: dateId,
+                  questionId: questionId.id,
                   answer: answer,
                 );
               },
@@ -85,6 +91,24 @@ class AnswersList extends StatelessWidget {
   final ValueChanged<String> onAnswerSelected;
   final ValueChanged<String> onAnswerUnselected;
 
+  void _onTap(BuildContext context, Answer answer) {
+    if (selectedAnswers.contains(answer.answer)) {
+      onAnswerUnselected(answer.answer);
+      Provider.of<ScoreModel>(context, listen: false).decrement(answer.points);
+      Provider.of<CarbonFootprintModel>(
+        context,
+        listen: false,
+      ).decrementCarbonFootprint(answer.emissions);
+    } else {
+      onAnswerSelected(answer.answer);
+      Provider.of<ScoreModel>(context, listen: false).increment(answer.points);
+      Provider.of<CarbonFootprintModel>(
+        context,
+        listen: false,
+      ).incrementCarbonFootprint(answer.emissions);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -104,40 +128,21 @@ class AnswersList extends StatelessWidget {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: question.answers
-                .map(
-                  (answer) => Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: GestureDetector(
-                      onTap: () {
-                        if (selectedAnswers.contains(answer.answer)) {
-                          onAnswerUnselected(answer.answer);
-                          Provider.of<ScoreModel>(context, listen: false)
-                              .decrement(answer.points);
-                          Provider.of<CarbonFootprintModel>(
-                            context,
-                            listen: false,
-                          ).decrementCarbonFootprint(answer.emissions);
-                        } else {
-                          onAnswerSelected(answer.answer);
-                          Provider.of<ScoreModel>(context, listen: false)
-                              .increment(answer.points);
-                          Provider.of<CarbonFootprintModel>(
-                            context,
-                            listen: false,
-                          ).incrementCarbonFootprint(answer.emissions);
-                        }
-                      },
-                      child: SingleAnswerTile(
-                        text: answer.answer,
-                        assetPath: 'assets/images/answers/${answer.icon}',
-                        color: Color(int.parse(question.color)),
-                        selected: selectedAnswers.contains(answer.answer),
-                      ),
+            children: [
+              for (final answer in question.answers)
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: GestureDetector(
+                    onTap: () => _onTap(context, answer),
+                    child: SingleAnswerTile(
+                      text: answer.answer,
+                      assetPath: 'assets/images/answers/${answer.icon}',
+                      color: Color(int.parse(question.color)),
+                      selected: selectedAnswers.contains(answer.answer),
                     ),
                   ),
-                )
-                .toList(),
+                ),
+            ],
           ),
         ),
       ],

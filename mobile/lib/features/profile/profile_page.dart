@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/auth_model.dart';
+import 'package:mobile/state/auth_change_notifier.dart';
 import 'package:provider/provider.dart';
 
 class ProfilePage extends Page<void> {

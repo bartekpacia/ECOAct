@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mobile/extensions.dart';
 
 class AnswersToQuestion {
   AnswersToQuestion({
@@ -18,8 +19,8 @@ class AnswersToQuestion {
   final String userId;
 }
 
-class AnswersChangeNotifier extends ChangeNotifier {
-  AnswersChangeNotifier()
+class QuizChangeNotifier extends ChangeNotifier {
+  QuizChangeNotifier()
       : _firestore = FirebaseFirestore.instance,
         _auth = FirebaseAuth.instance {
     assert(_auth.currentUser != null, 'user must be authenticated');
@@ -38,13 +39,19 @@ class AnswersChangeNotifier extends ChangeNotifier {
   List<AnswersToQuestion> get answers => _answers;
   StreamSubscription<void>? _subscription;
 
+  String _createDocId(String questionId, String userId, String dateId) {
+    return '$dateId-$questionId-$userId';
+  }
+
   Future<void> selectAnswer({
+    required String dateId,
     required String questionId,
     required String answer,
   }) async {
-    await _firestore.collection('answers').doc().set(
+    final docId = _createDocId(questionId, user.uid, dateId);
+    await _firestore.collection('answers').doc(docId).set(
       {
-        'date': DateTime.now(),
+        'date': DateTimeX.fromId(dateId),
         'questionId': questionId,
         'selectedAnswers': FieldValue.arrayUnion([answer]),
         'userId': user.uid,
@@ -54,23 +61,28 @@ class AnswersChangeNotifier extends ChangeNotifier {
   }
 
   Future<void> unselectAnswer({
+    required String dateId,
     required String questionId,
     required String answer,
   }) async {
-    await _firestore.collection('answers').doc(questionId).update({
+    final docId = _createDocId(questionId, user.uid, dateId);
+    await _firestore.collection('answers').doc(docId).update({
       'selectedAnswers': FieldValue.arrayRemove([answer]),
     });
   }
 
   Stream<List<AnswersToQuestion>> _getAnswers() {
-    // TODO: Rename the "answers" collection to "answersToQuestions"
-    return _firestore.collection('answers').snapshots().map((snapshot) {
+    return _firestore
+        .collection('answers')
+        .where('userId', isEqualTo: user.uid)
+        .snapshots()
+        .map((snapshot) {
       final answers = snapshot.docs.map((doc) {
         final data = doc.data();
         return AnswersToQuestion(
           date: (data['date'] as Timestamp).toDate(),
           userId: data['userId'] as String,
-          questionId: doc.id,
+          questionId: data['questionId'] as String,
           selectedAnswers: (data['selectedAnswers'] as List<dynamic>)
               .map((e) => e.toString())
               .toList(),

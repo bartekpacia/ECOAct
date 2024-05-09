@@ -1,3 +1,5 @@
+import 'package:flutter/rendering.dart';
+
 class Quiz {
   Quiz({
     required this.questions,
@@ -103,6 +105,19 @@ final quiz = Quiz(
       question: 'Estimate how much water you used today :',
       answers: [
         Answer('text box placeholder', 0, 10, icon: 'text_box_icon.png'),
+      ],
+    ),
+    Question(
+      id: 'question_4',
+      type: QuestionType.multiChoice,
+      color: '0XFF95BF8D',
+      question: 'Did you separated the trash and recycled today ?',
+      answers: [
+        Answer("No, I didn't take the trash out today", 0, 10, icon: 'no.png'),
+        Answer("No, I didn't separated the trash or recycled", -20, 10, icon: 'fast.png'),
+        Answer('Yes, I separated almost everything', 10, 10, icon: 'second_hand.png'),
+        Answer('Yes, I separated everything ', 20, 10, icon: 'eco.png'),
+
       ],
     ),
   ],

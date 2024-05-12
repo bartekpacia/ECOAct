@@ -113,10 +113,10 @@ final quiz = Quiz(
       color: '0XFF95BF8D',
       question: 'Did you separated the trash and recycled today ?',
       answers: [
-        Answer("No, I didn't take the trash out today", 0, 10, icon: 'no.png'),
-        Answer("No, I didn't separated the trash or recycled", -20, 10, icon: 'fast.png'),
-        Answer('Yes, I separated almost everything', 10, 10, icon: 'second_hand.png'),
-        Answer('Yes, I separated everything ', 20, 10, icon: 'eco.png'),
+        Answer("Didn't take the trash out today", 0, 10, icon: 'no_trash.png'),
+        Answer("Didn't separate the trash or recycled", -20, 10, icon: 'trash_out.png'),
+        Answer('Separated almost everything', 10, 10, icon: 'recycle_trash.png'),
+        Answer('Separated everything ', 20, 10, icon: 'recycle.png'),
 
       ],
     ),

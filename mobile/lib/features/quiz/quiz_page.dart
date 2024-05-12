@@ -177,7 +177,7 @@ class SingleAnswerTile extends StatelessWidget {
       child: Container(
         width: 100,
         height: 100,
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(5),
         child: Column(
           children: [
             Expanded(
@@ -191,8 +191,8 @@ class SingleAnswerTile extends StatelessWidget {
                 child: Text(
                   text,
                   textAlign: TextAlign.center,
-                  maxLines: 2,
-                  style: context.textTheme.bodyMedium?.copyWith(
+                  maxLines: 3,
+                  style: context.textTheme.bodySmall?.copyWith(
                     color:
                         selected ? context.colorScheme.onPrimary : darkerColor,
                     fontWeight: FontWeight.bold,

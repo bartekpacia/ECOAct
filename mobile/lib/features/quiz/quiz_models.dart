@@ -1,5 +1,3 @@
-import 'package:flutter/rendering.dart';
-
 class Quiz {
   Quiz({
     required this.questions,
@@ -114,10 +112,19 @@ final quiz = Quiz(
       question: 'Did you separated the trash and recycled today ?',
       answers: [
         Answer("Didn't take the trash out today", 0, 10, icon: 'no_trash.png'),
-        Answer("Didn't separate the trash or recycled", -20, 10, icon: 'trash_out.png'),
-        Answer('Separated almost everything', 10, 10, icon: 'recycle_trash.png'),
+        Answer(
+          "Didn't separate the trash or recycled",
+          -20,
+          10,
+          icon: 'trash_out.png',
+        ),
+        Answer(
+          'Separated almost everything',
+          10,
+          10,
+          icon: 'recycle_trash.png',
+        ),
         Answer('Separated everything ', 20, 10, icon: 'recycle.png'),
-
       ],
     ),
   ],

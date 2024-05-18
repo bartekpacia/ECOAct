@@ -31,21 +31,24 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Username : ${user.displayName} \n  \nEmail : ${user.email}\n  \n',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
+            Text(
+              'Username : ${user.displayName} \n  \nEmail : ${user.email}\n  \n',
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
             ),
             TextButton(
               onPressed: () async {
                 await context.read<AuthChangeNotifier>().signOut();
               },
-              child: const Text('Sign out',
-              style: TextStyle(
-                color: Colors.green,
-                fontWeight: FontWeight.bold,
-                fontSize: 20,),
+              child: const Text(
+                'Sign out',
+                style: TextStyle(
+                  color: Colors.green,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
               ),
             ),
           ],

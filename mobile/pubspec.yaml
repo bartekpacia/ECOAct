@@ -30,6 +30,7 @@ dev_dependencies:
     sdk: flutter
   go_router_builder: ^2.6.1
   leancode_lint: ^12.1.0
+  mocktail: ^1.0.3
 
 dependency_overrides:
   intl: ^0.18.1 # for table_calendar

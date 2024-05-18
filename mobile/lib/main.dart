@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/app.dart';
@@ -26,7 +27,9 @@ class GlobalProviders extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => AuthChangeNotifier()),
+        ChangeNotifierProvider(
+          create: (context) => AuthChangeNotifier(auth: FirebaseAuth.instance),
+        ),
         ChangeNotifierProvider(create: (context) => ScoreModel()),
         ChangeNotifierProvider(create: (context) => CarbonFootprintModel()),
         ChangeNotifierProvider(create: (context) => QuizChangeNotifier()),

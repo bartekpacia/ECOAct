@@ -61,7 +61,11 @@ In this sprint we added more work then the previous sprints, and even though we 
 - be more careful to open issues and branchs or pull requests and associate them with the user storie it's about
 
 ### Sprint 3
-In this sprint we weren't able to complete everything as we would like to. There were user stories in which we underestimated their complexety and for that reason we didn't manage the time to get them done in the way we wanted to and we couldn't achive the quality we wanted to in some features we added last. Next time we should have paid more atention to possible problems we could encounter in each user storie so that it's complexity would be the most accurate possible. We have done more user and acceptance tests them last time. We overall couldn't complete all of the features we wanted for our app but working in sprints helped us realize that we were a little ambitous for the number of sprints we had and maybe creted to many user stories. Since our backlog was ordered in a way that made us do the most important features early on, our final product can still pass the main ideias of the app we planned.
+In this sprint we weren't able to complete everything as we would like to. There were user stories in which we underestimated their complexety and for that reason we didn't manage the time to get them done in the way we wanted to and we couldn't achive the quality we wanted to in some features we added last. Next time we should have paid more atention to possible problems we could encounter in each user storie so that it's complexity would be the most accurate possible. We have done more tests them last time. Since our backlog was ordered in a way that made us do the most important features early on, our final product can still pass the main ideias of the app we planned.
+
+### Feedback between sprints
+-Try to view every sprint end as a "if we released this app right now in the appstore would it be functional and useful"
+
 
 
 

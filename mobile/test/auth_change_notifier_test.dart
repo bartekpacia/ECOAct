@@ -28,11 +28,6 @@ void main() {
       authChangeNotifier = AuthChangeNotifier(auth: mockAuth);
     });
 
-    tearDown(() {
-      // streamController.close();
-      // verify(() => mockAuth.dispose()).called(once);
-    });
-
     test('user getter returns the current user from FirebaseAuth', () {
       final mockUser = MockUser();
       when(() => mockAuth.currentUser).thenReturn(mockUser);

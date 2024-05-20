@@ -57,11 +57,12 @@ The tests that were implemented can be found in folders [mobile/.maestro](mobile
 ## Screenshoots of the beginig and end of sprint
 
 ### Begining Sprint 3
-(we forgot to take the screenshoot so we put everything in it's original place but some of the user stories were already complete)
+(we forgot to take the screenshoot so we put everything in it's original place but some of the user stories were already complete, and others that were from the previous sprint that stayed In Progress had already iteration and complexity incremented since they were harder than we thought(complexity incrementation) and we worked on them in this sprint(iteration incrementation))
 
 ![](images/sprint3_begin.png)
 
 ### End Sprint 3
+3 stories stayed in progress because we couldn't have the features working in a way that we could consider them finished and presentable in time, for example the news feature.
 ![](images/screenshot_sprint3_end.png)
 
 

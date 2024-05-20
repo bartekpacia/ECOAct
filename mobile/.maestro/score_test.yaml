@@ -1,0 +1,21 @@
+appId: pt.up.fe.es2024.g01t01
+name: Score test
+---
+- launchApp:
+    clearState: true
+- tapOn: Create an account here
+- tapOn: Email
+- inputRandomEmail
+- tapOn: Name
+- inputRandomPersonName
+- tapOn: Password
+- inputText: password1
+- tapOn: Repeat password
+- inputText: password1
+- tapOn: Sign up
+- tapOn: "Tuesday, May 14, 2024"
+- tapOn: "walked"
+- tapOn: "fish"
+- tapOn: "Back"
+- tapOn: "Tab 3 of 4"
+- assertVisible: "Current score: 30"

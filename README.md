@@ -54,6 +54,16 @@ The user stories are created as GitHub items in the Project board.
 ### Sprint 2
 In this sprint we added more work then the previous sprints, and even though we weren't able to complete everything as we would like to, we still got more work done. Putting more user stories in our sprint backlog made us work more and faster, so now we can have a better idea of the ideal amount of work we should do. We also realised that we have to pay more attention to the details in our work to make sure it's well polished before assuming it as finished. We have started to approach the implementation of unit and acceptance tests, and we are hoping in this next sprint to implement them in the user stories that we already done until this point. We are looking to focus on quality over quantity on the next sprint, since we realized that it's better to have fewer user stories completely done and ready to present, than to have more user stories but them having problems or not being good enough to present.
 
+### Feedback between sprints
+- Pay more attention to detail
+- Quality over quantity
+- more tests
+- be more careful to open issues and branchs or pull requests and associate them with the user storie it's about
+
+### Sprint 3
+In this sprint we weren't able to complete everything as we would like to. There were user stories in which we underestimated their complexety and for that reason we didn't manage the time to get them done in the way we wanted to. Next time we should have paid more atention to possible problems we can encounter in each user storie so that it's complexity can be the most accurate possible. We have done more user and acceptance tests them last time.
+
+
 
 
 

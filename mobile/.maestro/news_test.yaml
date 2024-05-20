@@ -1,0 +1,15 @@
+appId: pt.up.fe.es2024.g01t01
+name: News test
+---
+- launchApp:
+    clearState: true
+- tapOn: Email
+- inputText: example@example.com
+- tapOn: Password
+- inputText: correct
+- tapOn: Sign in
+- tapOn: Tab 4 of 4
+- tapOn: News of our Planet
+- tapOn: Back
+- tapOn: Ecological Tips and Facts
+- tapOn: Back

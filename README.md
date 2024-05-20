@@ -49,9 +49,15 @@ The user stories are created as GitHub items in the Project board.
 ### Package UML
 ![](images/package_uml.png)
 
+
 ## Screenshoots of the beginig and end of sprint
-### Begining
+
+### Begining Sprint 2
 (we forgot to take the screenshoot so we put everything in it's original place but some of the user stories were already complete)
+![](images/Captura_de_Ecrã_(61).png)
+
+### End Sprint 2
+![](images/Captura_de_Ecrã_(62).png)
 
 
 

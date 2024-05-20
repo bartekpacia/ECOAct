@@ -1,0 +1,13 @@
+appId: pt.up.fe.es2024.g01t01
+name: Sign in test (good credentials)
+---
+- launchApp:
+    clearState: true
+- tapOn: Email
+- inputText: example@example.com
+- tapOn: Password
+- inputText: correct
+- tapOn: Sign in
+- tapOn: Tab 2 of 4
+- tapOn: Sign out
+- assertVisible: Welcome to ECOAct

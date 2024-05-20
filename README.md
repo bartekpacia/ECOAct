@@ -11,6 +11,7 @@ You can find here details about the ECOAct, from a high-level vision to low-leve
   - [Domain model](#Domain-model)
 - [Architecture and Design](#Architecture-And-Design)
   - [Vertical prototype](#Vertical-Prototype)
+- [Tests](#Tests)
 - [Screenshoots of the beginig and end of sprint](#Screenshoots-of-the-beginig-and-end-of-sprint)
 - [Sprint Retrospective and Feedback](#Sprint-Retrospective)
 
@@ -48,6 +49,9 @@ The user stories are created as GitHub items in the Project board.
 
 ### Package UML
 ![](images/package_uml.png)
+
+## Tests
+The tests that were implemented can be found in folders [mobile/.maestro](mobile/.maestro) and [mobile/test](mobile/test)
 
 
 ## Screenshoots of the beginig and end of sprint

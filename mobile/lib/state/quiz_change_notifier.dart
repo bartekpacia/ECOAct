@@ -20,9 +20,11 @@ class AnswersToQuestion {
 }
 
 class QuizChangeNotifier extends ChangeNotifier {
-  QuizChangeNotifier()
-      : _firestore = FirebaseFirestore.instance,
-        _auth = FirebaseAuth.instance {
+  QuizChangeNotifier({
+    required FirebaseFirestore firestore,
+    required FirebaseAuth firebaseAuth,
+  })  : _firestore = firestore,
+        _auth = firebaseAuth {
     assert(_auth.currentUser != null, 'user must be authenticated');
     user = _auth.currentUser!;
 

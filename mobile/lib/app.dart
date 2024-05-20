@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mobile/navigation/app_router.dart';
@@ -38,7 +40,12 @@ class _AppState extends State<App> {
       providers: [
         ChangeNotifierProvider(create: (context) => ScoreModel()),
         ChangeNotifierProvider(create: (context) => CarbonFootprintModel()),
-        ChangeNotifierProvider(create: (context) => QuizChangeNotifier()),
+        ChangeNotifierProvider(
+          create: (context) => QuizChangeNotifier(
+            firestore: FirebaseFirestore.instance,
+            firebaseAuth: FirebaseAuth.instance,
+          ),
+        ),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

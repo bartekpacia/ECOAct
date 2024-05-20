@@ -3,8 +3,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/app.dart';
 import 'package:mobile/state/auth_change_notifier.dart';
-import 'package:mobile/state/emissions_model.dart';
-import 'package:mobile/state/quiz_change_notifier.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -12,29 +10,9 @@ void main() async {
   await Firebase.initializeApp();
 
   runApp(
-    const GlobalProviders(
-      child: App(),
+    ChangeNotifierProvider<AuthChangeNotifier>(
+      create: (_) => AuthChangeNotifier(auth: FirebaseAuth.instance),
+      child: const App(),
     ),
   );
-}
-
-class GlobalProviders extends StatelessWidget {
-  const GlobalProviders({super.key, required this.child});
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => AuthChangeNotifier(auth: FirebaseAuth.instance),
-        ),
-        ChangeNotifierProvider(create: (context) => ScoreModel()),
-        ChangeNotifierProvider(create: (context) => CarbonFootprintModel()),
-        ChangeNotifierProvider(create: (context) => QuizChangeNotifier()),
-      ],
-      child: child,
-    );
-  }
 }

@@ -38,9 +38,7 @@ class _AppState extends State<App> {
       providers: [
         ChangeNotifierProvider(create: (context) => ScoreModel()),
         ChangeNotifierProvider(create: (context) => CarbonFootprintModel()),
-        ChangeNotifierProvider(
-          create: (context) => QuizChangeNotifier(),
-        ),
+        ChangeNotifierProvider(create: (context) => QuizChangeNotifier()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

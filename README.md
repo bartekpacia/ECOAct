@@ -52,11 +52,11 @@ The user stories are created as GitHub items in the Project board.
 
 ## Screenshoots of the beginig and end of sprint
 
-### Begining Sprint 2
+### Begining Sprint 3
 (we forgot to take the screenshoot so we put everything in it's original place but some of the user stories were already complete)
-![](images/screenshotsprint3_begin.png)
+![](images/sprint3_begin.png)
 
-### End Sprint 2
+### End Sprint 3
 ![](images/screenshot_sprint3_end.png)
 
 

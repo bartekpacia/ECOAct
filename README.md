@@ -58,6 +58,7 @@ The tests that were implemented can be found in folders [mobile/.maestro](mobile
 
 ### Begining Sprint 3
 (we forgot to take the screenshoot so we put everything in it's original place but some of the user stories were already complete)
+
 ![](images/sprint3_begin.png)
 
 ### End Sprint 3

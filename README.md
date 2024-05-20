@@ -11,7 +11,8 @@ You can find here details about the ECOAct, from a high-level vision to low-leve
   - [Domain model](#Domain-model)
 - [Architecture and Design](#Architecture-And-Design)
   - [Vertical prototype](#Vertical-Prototype)
-- [Sprint Retrospective](#Sprint-Retrospective)
+- [Screenshoots of the beginig and end of sprint](#Screenshoots-of-the-beginig-and-end-of-sprint)
+- [Sprint Retrospective and Feedback](#Sprint-Retrospective)
 
 Contributions are expected to be made exclusively by the initial team, but we may open them to the community, after the course, in all areas and topics: requirements, technologies, development, experimentation, testing, etc.
 
@@ -47,6 +48,11 @@ The user stories are created as GitHub items in the Project board.
 
 ### Package UML
 ![](images/package_uml.png)
+
+## Screenshoots of the beginig and end of sprint
+### Begining
+(we forgot to take the screenshoot so we put everything in it's original place but some of the user stories were already complete)
+
 
 
 ## Sprint Retrospective
